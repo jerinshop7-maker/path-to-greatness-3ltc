@@ -1,0 +1,12 @@
+# compiled engine (source is tools/sweep.c)
+tools/sweep
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+*.swp

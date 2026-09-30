@@ -1,0 +1,94 @@
+# Path to Greatness: Treasure Hunt (3.02608794 LTC, OPEN)
+
+Independent cryptanalysis of Justin Patterson's (`jpatt94`) Litecoin treasure hunt
+(`p2gtreasure.com`, announced on r/ARG 2021-07-25). The prize is still unspent at
+escrow `LUtL7qnm3gzxKjHcfVLSjydqhhinTVmTmS`.
+
+The puzzle: eight clue answers of fixed lengths (16/15/8/12/20/16/24/17 characters)
+concatenate to 128 ASCII characters, which are four AES-256-CBC keys, one per pair
+of clues. Each key decrypts one 8-byte segment of a 32-byte `super_key`, which
+decrypts the WIF blob. Each segment ciphertext is a single AES block holding 8
+useful bytes, so its plaintext must end with eight `0x08` padding bytes: a perfect
+per-segment oracle with a false-positive rate of 2^-64.
+
+## What this repository contains
+
+- `analysis/SESSION-FINDINGS-2026-09-30.md` — **start here.** Confirmed findings,
+  corrections to the prior analysis, every new negative, and the ranked route tree.
+- `analysis/leads.md`, `analysis/tested.md` — the prior analyst's open leads and
+  negative ledger (kept for continuity, see provenance below).
+- `clues/` — the nine clue files as served by the puzzle site, plus the two
+  lossless carriers reached through the site's QR codes.
+- `tools/oracle.py` — the candidate checker (segment oracle, full-address verdict,
+  `--selftest`). Two import fallbacks were added so it runs on Python 3.14.
+- `tools/sweep.c` — a self-contained AES-256-CBC **decryption** padding-oracle
+  brute forcer written for this analysis. Certified against the FIPS-197 /
+  SP 800-38A AES-256 vector and against `pycryptodome` stage by stage; planted
+  witnesses are re-found and a near-miss control stays silent. Measured
+  throughput ≈4.9 M keys/s per core (10^8 keys in 20.5 s).
+- `tools/witness.py`, `tools/dectrace.py`, `tools/aesdiff.py` — witness planting
+  and the two cross-checks used to certify the C engine.
+- `tools/candidates.py`, `tools/seg4_attempts.py`, `tools/seg4_battery.py`,
+  `tools/scramble_battery2.py`, `tools/sky_decode.py`, `tools/sky_search.py`,
+  `tools/beach_candidates.py` — hypothesis generators and batteries, one per
+  segment. Every one reports its own scope.
+
+## Confirmed findings (details and evidence in `analysis/SESSION-FINDINGS-2026-09-30.md`)
+
+1. The oracle reproduces its published guarantees on a clean machine
+   (`SELFTEST OK`).
+2. **The album tracklist used by the prior analysis is wrong.** The real
+   "Seconds of Dream" (2021-01-07, 13 tracks) is: 1 Few and Far Between,
+   2 The Suffocating Carrier, 3 The Surrogate, 4 Exit Light, 5 Ghost March,
+   6 Nocturnal Sugars, 7 All Art Must Die, 8 Daylight Brings, 9 Hills of Life,
+   10 As Seen From Afar, 11 The Great Adventure, 12 Sequels,
+   13 Seconds of Dream. The durations sum to exactly 3,426,218 ms, the certified
+   total for the album audio embedded in the game demo.
+3. **Clue 8's rule is exactly "the n-th letter of the track title, spaces
+   removed" (1-based).** Both author examples verify against the real titles:
+   `4 → Exit Light → exitlight[4] = t`, `8 → Ghost March → ghostmarch[8] = r`.
+4. The prior analysis's "counting argument" that closed clue 8 assumed only one
+   track has 18+ letters; with the real album three do, so the argument as stated
+   is void (what actually rules the plain positional reading out is length
+   arithmetic, documented in the findings file).
+5. Clue 8's string encodes exactly 17 digits (`58112171456182114`), the required
+   answer length; clue 2's string has exactly 15 capitals, its required answer
+   length.
+
+## Running the tools
+
+```bash
+pip install pycryptodome          # or pycryptodomex (the oracle falls back)
+pip install ecdsa                 # public-key fallback when coincurve is absent
+
+python3 tools/oracle.py --selftest                    # SELFTEST OK
+python3 tools/oracle.py --segment 1 <imagine> <beach> # one pair, MATCH / NO MATCH
+python3 tools/oracle.py --answers <a1> ... <a8>       # full verdict
+
+gcc -O3 -march=native -o tools/sweep tools/sweep.c    # build the engine
+tools/sweep test                                      # FIPS vector + full trace
+tools/sweep 1 <template32> <mask32>                   # wave over a key space
+```
+
+Mask classes for `sweep`: `.` printable ASCII, `0` digits, `?` all bytes,
+`r` mirror the byte 8 positions earlier, any other character = fixed.
+
+## Provenance and attribution
+
+- The puzzle, the clue images, and the prior analyst's `leads.md` / `tested.md` /
+  `puzzle.json` / `UPSTREAM-README.md` come from
+  [floflo777/open-crypto-puzzles](https://github.com/floflo777/open-crypto-puzzles)
+  (`2-mid-prizes/path-to-greatness-treasure-hunt-3ltc`), which catalogues public
+  crypto treasure hunts.
+- The clue images are the puzzle author's own published files, served by
+  `p2gtreasure.com` and delivered through its QR codes; they are included here
+  for analysis only.
+- Everything under `tools/` except `oracle.py`, and all findings in
+  `analysis/SESSION-FINDINGS-2026-09-30.md`, were written in this analysis
+  session and are the original work of this repository.
+
+## Status
+
+Open. No segment is solved. The most valuable next steps are the twenty-second
+per-hypothesis convention sweep on segment 1, a human reading of the clue-2
+anagram words (OCR fails on that font), and naming clue 5's pictograms.
