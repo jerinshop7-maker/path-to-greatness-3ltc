@@ -16,18 +16,29 @@ after two import fallbacks were added for Python 3.14 (see Tooling).
 | C5 | Clue 2's 41-cell string `s-bcBPEFfJDfeFmksmPOkChDhrgBqjD-i---ffeNB` contains **exactly 15 capitals** (BPEFJDFPOCDBDNB) and 21 lowercase letters and 5 dashes; 15 = the clue-2 answer length, 36 letters total, 41 cells. | Reproduced count; matches the repo's count of 15 capitals and dash positions 2,32,34,35,36. |
 | C6 | The clue-1 image really prints the poem and the number `19410712`; the clue-8 panel really reads `4 -> Exit Light -> T` / `8 -> Ghost March -> R`; `computer_screen.jpg` really carries the published scheme. | OCR (tesseract 5.5.0) of the served JPEGs, text matches `clues/author-posts.md` character for character where legible. |
 
-### Why C2 matters (it invalidates one of the repo's closures)
+### Why C2 matters (it confirms the repo's counting argument)
 
-`analysis/leads.md` rules out reading each clue-8 value as a single index into a
-track title with a *counting argument*: "two of the values need a title of 18
-letters or more and only one such track exists". With the real tracklist, three
+**Correction, added in round 3.** An earlier draft of this section claimed three
 titles are ≥18 letters (`fewandfarbetween` 18, `thesuffocatingcarrier` 22,
-`thegreatadventure` 18), so that argument is void as stated. What still kills the
-plain 1:1 reading is length arithmetic, not the title inventory: values
-18 (cell 10) and 21 (cell 11) cannot both fit their positional tracks in order
-(cell 10 → track 10 has 15 letters; cell 11 → track 11 has 18). All increasing
-injections of the 11 letter-cells into the 13 tracks were enumerated here: 0
-consistent assignments, under 1-based and 0-based indexing.
+`thegreatadventure` 18) and that this voided the repo's counting argument. That
+was a length error. The real title lengths, spaces removed, are
+
+```
+1 fewandfarbetween 16   6 nocturnalsugars 15  11 thegreatadventure 17
+2 thesuffocatingcarrier 21   7 allartmustdie 13     12 sequels 7
+3 thesurrogate 12       8 daylightbrings 14   13 secondsofdream 14
+4 exitlight 9           9 hillsoflife 11
+5 ghostmarch 10        10 asseenfromafar 14
+```
+
+Exactly **one** title is ≥18 letters (`thesuffocatingcarrier`, 21), so the repo's
+counting argument was right after all. It is in fact stronger than "positional":
+the clue needs two values ≥18 (cells 10 and 11: `R`=18, `U`=21) and only one
+title is that long, so **no assignment of the 11 letter-cells to distinct tracks,
+positional or not, can read the cell value as an index into its assigned track.**
+This kills the "non-positional pairing" hope (lead 4, and the pasted analysis's
+starred next target) outright. Reproduced by `tools/seg4_sky_track.py`, which also
+re-runs the 78 increasing injections.
 
 ## 2. New negatives (certified runs, this machine)
 
@@ -92,6 +103,12 @@ and not ordered.
   `MUL2` half zero — encryption never notices, decryption refuses to work).
 - `candidates.py`, `seg4_attempts.py`, `seg4_battery.py`, `scramble_battery2.py`,
   `sky_decode.py`, `sky_search.py`, `beach_candidates.py`.
+- `seg4_exhaustive.py` — round-2 systematic clue-2 x clue-8 cross (28,168 pairs, 0).
+- `seg4_sky_track.py` — round-3: corrected track lengths, the impossibility proof,
+  the systematic track-selector x letter-index family, the witness-consistent
+  scheme, and the cross (22,308 pairs, 0).
+- `seg4_clue2_sweep.py` — round-3: 12,826 arithmetic clue-2 rules against both
+  pinned skies (25,652 pairs, 0).
 
 ## 5. Route tree (ranked by expected value per hour)
 
@@ -137,6 +154,52 @@ SEGMENT 2  chess(12) + wonders(20)
 └─ (b) chess: 14 pieces → 12 characters keeping case; "a symbol that's flown" →
     international code of signals (flags) is the untried dictionary
 ```
+
+## 5b. Round 3 (2026-09-30, later): clue 8 pairing re-derived, clue 2 swept
+
+### N7 — the witness-consistent clue-8 scheme (UNCONFIRMED, leading candidate)
+
+The two author examples are not illustrations of "number = track index". They fix
+the operation's two branches exactly:
+
+- `4 -> Exit Light -> T`: cell 4 is a **dash**; its track is its own position
+  (4 = Exit Light) and the letter is that track's 4th character, `t`.
+- `8 -> Ghost March -> R`: cell 8 is `E`, value 5; its track is its **alphabet
+  value** (5 = Ghost March), and the letter is that track's 8th character, `r`.
+
+So the rule the panel states is: *the letter index is the cell's position; the
+track is selected by the cell's value (wrapped into 1..13), or by its position
+when the cell is a dash.* Applying it to `ehk-bqNEFRUn-` gives the 13 letters
+
+```
+g a e t u i f r l h i t a        (cell 4 -> 't', cell 8 -> 'r')
+```
+
+whose alphabet positions concatenate to 18 digits. Dropping the **trailing**
+dash cell (a terminator, and the only reading that yields the required length)
+gives exactly 17 digits:
+
+```
+71520219618128920        = G A E T U I F R L H I T  (cells 1..12)
+```
+
+This candidate (a) reproduces both author witnesses, (b) is the only variant of
+its family that does (`tools/seg4_sky_track.py` prints the whole family), and
+(c) lands on the required 17. It is nevertheless **UNCONFIRMED**: it does not
+pass segment 4 against any of 3,718 clue-2 candidates (22,308 pairs, 0 hits) nor
+against 12,826 arithmetic clue-2 rules with both skies (25,652 pairs, 0 hits,
+`tools/seg4_clue2_sweep.py`). Treat it as the best clue-8 hypothesis so far; the
+bottleneck it exposes is clue 2.
+
+### N8 — pasted third-party claims checked
+
+| Claim | Verdict |
+|---|---|
+| `ESHIPJKCBNLINSG` from "capital + nearest preceding lowercase" is a lead | **REFUTED.** It is already in the round-2 candidate set (family `A\|prev_low++0\|a1`); its segment-4 verdict with sky = digits is NO MATCH. It is a coincidence, not a lead (the 5-scheme line is stronger and also does not pass). |
+| `DTYEIMHTIAWRUIK` from signed running arithmetic | **REFUTED**, and already covered by the round-2 `running_mod26` family. |
+| clue 8's 17 digits are a first-layer encoding, 13 cells map non-positionally to 13 tracks | **REFUTED as stated** (see the correction above: value-as-index is impossible for *every* assignment). |
+| the dashes at cells 4 and 13 give a 3+8 split that explains the 17 length | **Not a constraint**: dashes at 4 and 13 delimit 3 and 8 letters; the trailing dash is a terminator, and the 17 length comes from decimal concatenation, not from the split. |
+| clue 5's/4's "maritime convergence" | Untested (needs the pictograms and the chess position read by a person); no computational content yet. |
 
 ## 6. One-line status
 

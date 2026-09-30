@@ -44,16 +44,21 @@ per-segment oracle with a false-positive rate of 2^-64.
    10 As Seen From Afar, 11 The Great Adventure, 12 Sequels,
    13 Seconds of Dream. The durations sum to exactly 3,426,218 ms, the certified
    total for the album audio embedded in the game demo.
-3. **Clue 8's rule is exactly "the n-th letter of the track title, spaces
-   removed" (1-based).** Both author examples verify against the real titles:
+3. **Clue 8's operation is "the n-th letter of the track title, spaces
+   removed".** Both author examples verify against the real titles:
    `4 → Exit Light → exitlight[4] = t`, `8 → Ghost March → ghostmarch[8] = r`.
-4. The prior analysis's "counting argument" that closed clue 8 assumed only one
-   track has 18+ letters; with the real album three do, so the argument as stated
-   is void (what actually rules the plain positional reading out is length
-   arithmetic, documented in the findings file).
-5. Clue 8's string encodes exactly 17 digits (`58112171456182114`), the required
-   answer length; clue 2's string has exactly 15 capitals, its required answer
-   length.
+   The *number* in each example is the cell's position (cell 4 is a dash, cell 8
+   is `E`), and the *track* is chosen by the cell's value (`E`=5 → Ghost March)
+   or, for a dash, by its position (4 → Exit Light). Reproducing both witnesses
+   this way fixes the rule and yields a 17-digit sky candidate
+   `71520219618128920` (`tools/seg4_sky_track.py`). It is UNCONFIRMED — it does
+   not pass segment 4 against 3,700+ clue-2 candidates. The bottleneck is clue 2.
+4. The prior analysis's "counting argument" that closed clue 8 is **correct**:
+   the real title lengths are 16/21/12/9/10/15/13/14/11/14/17/7/14, so exactly
+   one title is ≥18 letters and the clue needs two values ≥18 (18 and 21). No
+   assignment of the 11 letter-cells to distinct tracks, positional or not, can
+   read the cell value as an index into its assigned track.
+5. Clue 2's string has exactly 15 capitals, its required answer length.
 
 ## Running the tools
 
