@@ -201,10 +201,101 @@ bottleneck it exposes is clue 2.
 | the dashes at cells 4 and 13 give a 3+8 split that explains the 17 length | **Not a constraint**: dashes at 4 and 13 delimit 3 and 8 letters; the trailing dash is a terminator, and the 17 length comes from decimal concatenation, not from the split. |
 | clue 5's/4's "maritime convergence" | Untested (needs the pictograms and the chess position read by a person); no computational content yet. |
 
+## 5c. Round 4 (2026-09-30, later still): the clue-2 image is rotated, and its
+scrambled word order partitions the string
+
+### N9 — the clue-2 image layout (NEW, structural)
+
+The clue-2 JPEG stores all of its text **rotated 90 degrees**; that is why every
+previous OCR attempt failed and why the anagrams were never transcribed. Rotating
+the crop 270 degrees and running tesseract recovers three lines:
+
+```
+ot rleow utbrctsa aacpilt hwti
+dioiatdn het ryuo
+s-bcBPEFfJDfeFmksmPOkChDhrgBqjD-i---ffeNB
+```
+
+The eight anagram words are `ot rleow utbrctsa aacpilt hwti dioiatdn het ryuo`,
+i.e. TO LOWER SUBTRACT CAPITAL WITH ADDITION THE YOUR — the instruction, **with
+the words themselves displayed in scrambled order** (display rank of the correct
+words is `[5,8,4,6,1,7,2,3]`). And the eight word lengths
+`2,5,8,7,4,8,3,4` sum to **exactly 41**, the length of the mixed-case string, so
+the words partition the string into eight segments:
+
+```
+TO       's-'          CAPITAL  'ksmPOkC'
+LOWER    'bcBPE'       WITH     'hDhr'
+SUBTRACT 'FfJDfeFm'    ADDITION 'gBqjD-i-'
+                       THE      '--f'
+                       YOUR     'feNB'
+```
+
+The two capitals of `Correction` aside, this is a concrete, previously
+unrecorded fact about the clue and a new family (reorder the segments into
+sentence order before decoding, shift each capital by its segment's word, etc.).
+
+### N10 — the "ENTR" reverse-index signal is the repo's old family, and it is
+impossible as a complete rule
+
+With `track = cell position` and `index = len(title) - value - 1` (0-based), the
+first usable cells give `E N T R` (`fewandfarbetween[10]=e`,
+`thesuffocatingcarrier[12]=n`, `thesurrogate[0]=t`, `ghostmarch[7]=r`). This is
+**already the repo's** `n = len - v` reading (leads.md lead 4), which gives
+`ent_r??bs???`. It is not a new route, it silently drops **five** of the twelve
+letter-cells (values 17, 14, 18, 21, 14 are all out of range), and it is
+impossible as stated: `u`=21 needs a title of 22+ letters and the longest title in
+the album is 21. Forward indexing is likewise impossible (values 18 and 21 both
+need the single 21-letter title). Marked **REFUTED as a complete rule**, and
+**not a lead** — a prefix that only survives by discarding 5/12 cells is not
+signal.
+
+### N11 — round-4 negatives
+
+| Family | Space | Result |
+|---|---|---|
+| clue 2: linear combos of up to 3 context features (coeffs -2..2, all shifts/bases) | 793,116 distinct scrambles x 2 skies | 0 |
+| clue 2: equal-rank capital/lowercase pairings, permutation-by-key, char-at-position, running with dash resets | included above | 0 |
+| clue 2: all 8,846 distinct 15-letter English words (dwyl/english-words) x 2 skies | 17,692 | 0 |
+| clue 2: album-indexed selection (value/position as track, any index) | 330 | 0 |
+| clue 2: the layout families (sentence-order segments, word Vigenere, raw capitals of the reordered string) | 1,768 (+740) | 0 |
+
+Tools: `tools/seg4_clue2_wide.py`, `tools/clue2_layout.py`.
+
+## 5d. Route tree (round 4)
+
+```
+SEGMENT 4  scramble(15) + sky(17)          <-- highest structural confidence
+├── SKY
+│   ├── repo reading: 58112171456182114 .......... UNCONFIRMED structural
+│   ├── witness-consistent scheme -> 71520219618128920 ... UNCONFIRMED,
+│   │        both author witnesses reproduced; UNIQUE in its family
+│   └── value-as-index into tracks ................ PROVEN IMPOSSIBLE (any
+│            assignment; needs 2 titles >= 18, only one exists)
+└── SCRAMBLE (now the single bottleneck; 803k+ hypotheses, 0 hits)
+    ├── capitals only ............................ REFUTED
+    ├── local / running / linear arithmetic ..... REFUTED (793k)
+    ├── 15-letter English words ................. REFUTED (8.8k)
+    ├── album-indexed selection ................. REFUTED
+    └── image layout: words partition the string ... NEW, families REFUTED so far
+
+SEGMENT 1  imagine(16) + beach(16)
+├── beach = measured 15 notes + 1 convention char  OPEN (convention sweep is 20 s)
+└── imagine = "Livin' life today" replacement      OPEN (not the raw date)
+
+SEGMENT 3  wasd(8) + ship(24)
+├── grid: 8 no-predecessor cells -> the 8 chars     OPEN (needs a human read)
+└── ship: plain description of the Titanic montage   OPEN
+
+SEGMENT 2  chess(12) + wonders(20)
+├── six pictograms (navigation/flags?)              OPEN (needs a human read)
+└── chess 14 pieces -> 12 chars, "symbol that's flown"  OPEN
+```
+
 ## 6. One-line status
 
-No segment solved. The highest-value corrections are C2 (real tracklist) and C3
-(clue-8 rule), which re-open the repo's closed clue-8 lead and give every
-track-indexed clue (5, 8, and the beach/beach-family readings) a correct
-dictionary for the first time; and the segment-1 convention sweep now costs 20
-seconds per hypothesis on this machine.
+No segment solved. Segment 4 is the most constrained: the sky has a unique
+witness-consistent candidate and the whole segment now hinges on the 15-character
+clue-2 answer, against which 800k+ hypotheses have failed. The clue-8
+value-as-index pairing is proved impossible, and the clue-2 image's scrambled word
+order (which partitions the string by word length) is the newest structural lead.

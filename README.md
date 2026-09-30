@@ -59,6 +59,17 @@ per-segment oracle with a false-positive rate of 2^-64.
    assignment of the 11 letter-cells to distinct tracks, positional or not, can
    read the cell value as an index into its assigned track.
 5. Clue 2's string has exactly 15 capitals, its required answer length.
+6. **The clue-2 image stores its text rotated 90 degrees.** Rotating it recovers
+   the eight anagram words — TO LOWER SUBTRACT CAPITAL WITH ADDITION THE YOUR —
+   displayed in scrambled order; their lengths sum to exactly 41, the string
+   length, so they partition the string into eight segments (`tools/clue2_layout.py`).
+7. **The clue-8 value-as-index pairing is impossible for every assignment** (the
+   clue needs two titles of 18+ letters; the album has one). The "ENTR" signal
+   from reverse indexing is the repo's old `len - v` family and silently drops
+   5 of 12 cells.
+8. Segment 4 now hinges on the 15-character clue-2 answer: 800k+ clue-2
+   hypotheses (linear arithmetic, English words, album-indexed, layout-based)
+   have been refuted against both pinned skies.
 
 ## Running the tools
 
