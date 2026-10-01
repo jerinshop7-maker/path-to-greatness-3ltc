@@ -23,7 +23,13 @@ per-segment oracle with a false-positive rate of 2^-64.
   lyric collages: clue 5's lines 4–8 quote Falkenbach, Nightwish, Pink Floyd,
   Coheed and Cambria and Alestorm verbatim. The album order and clue-2's `J`
   glyph are re-confirmed; positional/keyboard/in-image-highlight readings of
-  clue 2 are refuted. Latest route tree.
+  clue 2 are refuted.
+- `analysis/SESSION-FINDINGS-2026-10-01b.md` — **round 7.** Clue 5 line 2 is
+  confirmed as Vintersorg's "Astral and Arcane" (**six** quotes, not five; the
+  round-6 "unidentified" was wrong), lines 1 and 3 are the author's
+  instruction, and "the eight wonders" forks between New7Wonders+Giza and the
+  author's own 8-track *Archaic Reveries*. The music corpus supplies no clue-2
+  answer (924 pairs, 0). Latest route tree.
 - `analysis/leads.md`, `analysis/tested.md` — the prior analyst's open leads and
   negative ledger (kept for continuity, see provenance below).
 - `clues/` — the nine clue files as served by the puzzle site, plus the two
@@ -114,10 +120,12 @@ Mask classes for `sweep`: `.` printable ASCII, `0` digits, `?` all bytes,
 
 ## Status
 
-Open. No segment is solved. The round-6 finding is that the clue poems are
-assembled from **song lyrics and song titles** (clue 5 quotes five different
-prog/metal songs verbatim), which reframes clue 5's "eight wonders" as a
-playlist and makes song material a first-class answer hypothesis. The most
-valuable next steps are identifying the remaining quoted songs (lines 1–3),
-checking the quoted songs' album/track data against the three Roman numerals,
-and naming clue 5's pictograms.
+Open. No segment is solved. The round-7 finding is that the clue poems are
+assembled from **song lyrics and song titles**: clue 5 quotes **six** different
+prog/metal songs verbatim (line 2 = Vintersorg, "Astral and Arcane"; the other
+five from round 6), and lines 1/3 are the author's instruction. Clue 5 cannot be
+oracle-tested alone (segment 2 needs the chess half too), so the only place a
+real break can land is **segment 4** (clue 2's 15-character answer). The most
+valuable next steps are settling the "eight wonders" fork (New7Wonders+Giza vs
+the author's 8-track *Archaic Reveries*), making the pictogram↔song pairing
+systematic, and re-attacking clue 2.

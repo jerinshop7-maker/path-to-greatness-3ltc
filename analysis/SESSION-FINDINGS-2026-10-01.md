@@ -159,3 +159,98 @@ the "eight wonders" most likely a playlist and points segment 2's `wonders` half
 at song material rather than geography. Clue 2 remains the bottleneck for
 segment 4 and is now refuted on *positional*, *keyboard*, *arithmetic* and
 *image-highlight* readings alike.
+
+---
+
+## 7. Round 7 — external review reconciled
+
+A third-party review (pasted into the session) proposed three routes. Each was
+re-derived here. Two were already covered by the repository; one was tested for
+the first time and refuted. The review also repeats a clue-5 reading this
+repository already refuted.
+
+### 7a. New, certified negatives on clue 2
+
+| Family | Space | Result |
+|---|---|---|
+| **Anagram permutation** applied to the segment: the permutation that unscrambles each displayed anagram into its word is applied to that word's ciphertext cells, then capitals / all 15-letter windows are read; display and sentence order, all repeated-letter ambiguities | 244 distinct 15-char candidates × 2 skies | **0** (`tools/clue2_permutation.py`) |
+| **Ordering key**: per-cell value (word letter / cipher letter / position, ±, both chunk orders), used to *sort* the 15 capitals instead of becoming letters | 280 candidates × 2 skies | **0** (same tool) |
+
+The review called the ordering-key version "substantially less explored". It was
+not: `tools/clue2_three_layer.py` (round 5) already sweeps it (`order_by_keys`,
+asc/desc) and re-running it prints **112 candidates, NO MATCH** on both skies.
+The expanded round-7 version adds the aligned-chunk keys and also fails.
+
+### 7b. Clue 2's structure, re-confirmed cell by cell
+
+The 8 words partition the 41 cells exactly, and the per-chunk capital counts are
+**0, 3, 4, 3, 1, 2, 0, 2 = 15** (the answer length):
+
+```
+TO       s-        caps=0   l-
+LOWER    bcBPE     caps=3   llUUU
+SUBTRACT FfJDfeFm  caps=4   UlUUllUl
+CAPITAL  ksmPOkC   caps=3   lllUUlU
+WITH     hDhr      caps=1   lUll
+ADDITION gBqjD-i-  caps=2   lUllU-l-
+THE      --f       caps=0   --l
+YOUR     feNB      caps=2   llUU
+```
+
+So the review's structural point stands: the lowercase/dash cells are auxiliary
+and the 15 capitals are the answer *once ordered*. Every ordering family tried
+so far (value-sort, key-sort, permutation-of-segment) fails.
+
+### 7c. External source checked
+
+The Puzzling StackExchange question is real — **"An anagrammed logic puzzle!"**
+(question 122638, Oct 2023) posts the same two anagram lines and the same
+41-cell string. Its **only** answer is an explicit *partial* answer that
+reconstructs the anagrams ("to lower subtract capital with / addition the your")
+and stops at the string; there is **no accepted answer and no solution**. It
+independently confirms the anagram reconstruction and nothing more. (A meta
+post quotes a *variant* transcription
+`s-bcBPEDFfJDfeFmksmPOkChDhrgBqjiD-i---ffeNB` — extra `D`, `i` — which fails the
+15-capital count and is a copy error, not a new source.)
+
+### 7d. Clue 5 — the review re-asserts a reading X2 already refuted
+
+The review states "each [pennant] ending in a pennant whose point faces left ...
+therefore all three are kilometres". **This is exactly the claim `analysis/IMAGE-TRANSCRIPTION.md` correction X2 refutes**: the measured pennant orientations are
+**right, left, right**, i.e. **mi, km, mi**. An independent pixel re-check here
+was inconclusive (the rows sit on a busy parchment with torch light), so the
+definitive answer is still X2's eye-read — but the "all km" premise must not be
+assumed without a fresh measurement, because every number downstream changes
+(12,772 mi = 20,554 km, 12,061 mi = 19,411 km).
+
+The two landmark matches quoted (Great Wall↔Chichén Itzá ≈ 12,738 km,
+Great Pyramid↔Machu Picchu ≈ 12,037 km) are neither the clue values (12,772 /
+12,061) nor even the same *pairs* as the rows claim, and the round-5 haversine
+sweep over the New7Wonders + Giza + 21 monuments already failed under **both**
+units. Treat the landmark route as **OPEN but unproven**, not "strong".
+
+### 7e. Clue 3 — the 8 no-predecessor cells, read out
+
+The review's cheapest suggestion (read the 8 root values) has now been done
+from the committed eye-read grid `tools/wasd_grid.py`:
+
+```
+reading order:  r1c2=5  r2c4=3*  r4c9=2  r5c7=1*  r8c10=4  r9c1=1  r9c3=2*  r9c9=4*
+                values 5 3 2 1 4 1 2 4   ->  "53214124"
+non-star roots by WASD key: W=2 A=4 S=1 D=5  ->  "2415"
+star roots 1..4:                                "1234"
+```
+
+So the 8 roots give either the raw 8-digit `53214124`, or the 4 WASD-key values
+`2415` and the 4 star numbers `1234` in some interleaving. These are concrete
+8-character `wasd` candidates, but they cannot be tested yet because the `ship`
+(24 chars) half is still unknown.
+
+### 7f. Net effect on the route tree
+
+- **Clue 2** loses its last two "geometric" hopes (anagram-permutation and
+  ordering-key) — both certified 0. The bottleneck is now a non-arithmetic,
+  non-positional, non-permutation reading of the 15 capitals.
+- **Clue 5** gains one requirement: the pennant orientation must be settled by
+  a fresh, careful measurement before the unit question can be reopened.
+- **Clue 3** gains three concrete 8-char candidates (`53214124`, `2415`+`1234`).
