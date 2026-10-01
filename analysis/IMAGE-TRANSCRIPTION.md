@@ -193,8 +193,20 @@ Pennant direction is **→ ← →**. `KM` is on the left wall, `mi` on the righ
 **CONFIRMED by pixels**, not only by eye — see `tools/clue5_pennant.py` and
 round 12 in `SESSION-FINDINGS-2026-10-01g.md`; it isolates the crayon by
 thresholding R−G (background floor/wall sit at ≈ 80, crayon at 120–255, clean
-bimodal gap) and measures the pennant ink-height profiles `0.93 → 0.10` (row 1),
-`0.09 → 0.88` (row 2), `0.91 → 0.06` (row 3).
+bimodal gap) and measures the normalised per-column ink-height profile of each
+pennant, mast end → point end:
+
+| row | profile, left → right | mast | point |
+|---|---|---|---|
+| 1 | `0.03 0.93 0.57 0.52 0.51 0.43 0.36 0.36 0.31 0.28 0.27 0.24 0.18 0.10 0.03` | LEFT | **RIGHT** |
+| 2 | `0.03 0.09 0.18 0.19 0.24 0.27 0.34 0.33 0.37 0.43 0.49 0.52 0.55 0.88 0.13` | RIGHT | **LEFT** |
+| 3 | `0.10 0.91 0.54 0.52 0.48 0.43 0.36 0.36 0.34 0.27 0.27 0.22 0.18 0.10 0.06` | LEFT | **RIGHT** |
+
+Stable at every threshold from 110 to 150. (Round 12's write-up in
+`SESSION-FINDINGS-2026-10-01g.md` §5 reports an outer-fifth mass statistic
+instead — `0.333/0.063`, `0.059/0.338`, `0.336/0.070` — computed from a
+connected-component crop. Both statistics were run on the same image and agree on
+the verdict; the table above is what the committed tool prints.)
 Values: 12,772 mi · 5,210 km · 12,061 mi
 (= 20,554 km · 5,210 km · 19,411 km).
 

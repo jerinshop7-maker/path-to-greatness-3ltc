@@ -166,6 +166,13 @@ thick, point tapering).
 measurement, not a coin flip, and correction **X2 in `IMAGE-TRANSCRIPTION.md` is
 independently CONFIRMED**.
 
+*(A note added in round 13: the committed `tools/clue5_pennant.py` reports this
+same result as a normalised per-column ink-height profile rather than an
+outer-fifth mass — row 1 `0.03 0.93 0.57 … 0.10 0.03`, row 2
+`0.03 0.09 0.18 … 0.88 0.13`, row 3 `0.10 0.91 0.54 … 0.10 0.06`. Two
+implementations of the same measurement, same verdict, stable across thresholds
+110–150. The transcription now quotes both.)*
+
 This *strengthens* round 11's main negative. With units mi/km/mi, row 1's 12,772
 is 539 km past π·R — geometrically impossible. The all-km triple is now
 refuted on its own stated terms rather than merely UNPROVEN, and the geography
