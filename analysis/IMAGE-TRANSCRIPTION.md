@@ -22,6 +22,8 @@ measured in pixels. All files are 2560×1440 except `Beach.png` (400×316).
 | **X4** | **Clue 2's second text line is indented** relative to line 1 (starts ~6–7 monospace cells right). | dropped by OCR in `SESSION-FINDINGS` §5c |
 | **X5** | **Clue 8's panel carries far more than the two examples**: 13 question marks, a curved arrow, a decorative key/paths/padlock, and three emoji icon groups. | `author-posts.md` records only the two examples and the string |
 | **X6** | **Clue 5 pictogram 1 of row 1 is a headstone with a heart**, not a map/location pin. | (nobody had transcribed the pictograms at all) |
+| **X7** | **Clue 7's carrier is recovered.** Its montage is **not** "Ismay + Andrews + deck plans": the middle is a ship's *line drawing*, and the right-hand portrait has a heavy moustache (reads as Smith, not Andrews). | `author-posts.md`, rounds 12–14 |
+| **X8** | **Clue 7's mechanism was assumed, not read.** Stanza 1 of its own poem is the instruction: red channel, least significant bit. | `leads.md` §3 |
 
 ---
 
@@ -256,11 +258,75 @@ Note the first fifteen you hear
 Write them up and this step's done
 ```
 
-## 8. `clues/qr2.jpg` → `Ship.png` — clue 7, "ship", 24 characters
+## 8. `clues/qr2.jpg` → `clues/Ship.png` — clue 7, "ship", 24 characters
 
-The PNG itself was not retrieved in this session; the poem recorded in
-`author-posts.md` is taken from the lossless demo texture. Re-verify when the
-file is available.
+**RETRIEVED 2026-10-01 (round 14).** This section previously carried a
+placeholder: the PNG had not been obtained, and the poem was second-hand. Both
+are now first-hand. `clues/qr2.jpg` decodes to
+`https://tinyurl.com/y28knqz3`, which resolves to a public Google Drive file
+(`1jzxIFQGmTnR3EB42bd-DPEJfe655XbhG`). Fetched, saved as `clues/Ship.png`,
+**2,896,530 bytes, 1920×1080, RGBA**. `tools/clue7_ship_extract.py` reproduces
+every line below.
+
+**Channel structure (measured):** alpha is uniformly 255; **G and B are
+identical**; so the payload is confined to the red channel.
+
+**Poem, read off the top right of the file:**
+
+```
+A red sky at night
+Not the least bit significant
+A channel for light
+And a ship so magnificent
+
+The cold, dark night
+Moves towards its maker
+The vast, frigid ocean
+The great undertaker
+```
+
+Stanza 1 is the **extraction instruction**: *a red … channel* → the red channel,
+*the least bit* → its least significant bit.
+
+**Red bit planes (set-pixel fraction):**
+
+| plane | mean | verdict |
+|---|---|---|
+| **0** | **0.250** | **the hidden montage** |
+| 1 | 0.498 | noise — verified visually as pure static |
+| 2 | 0.501 | noise |
+| 3 | 0.511 | noise |
+| 4 | 0.422 | ordinary image content |
+| 5 | 0.614 | ordinary image content |
+| 6 | 0.651 | ordinary image content |
+| 7 | 0.792 | ordinary image content |
+
+**There is no second layer.** After removing a local box blur from plane 0, no
+pixel carries a further least-significant bit, so the montage is not itself a
+nested container.
+
+**The montage** is a three-part collage:
+
+1. **left** — a male portrait, narrower face, high brow, dark eyes, a moustache
+   and goatee shadow;
+2. **middle** — a **ship's line drawing**: a hull seen from the bow quarter with
+   rows of deck openings, the foremast and its standing rigging above;
+3. **right** — a male portrait, broader face, heavy jaw, and a **heavy drooping
+   moustache**.
+
+### CORRECTIONS this section now carries
+
+| # | Correction | Where it was wrong |
+|---|---|---|
+| **X7** | The montage's middle element is a **ship's line drawing**, not "deck plans" and not a photograph. | `author-posts.md` / rounds 12–14 all say "the deck plans in the middle" |
+| **X7b** | The right-hand portrait carries a **heavy moustache**, which matches Bernard Hill's Captain Edward Smith, **not** Victor Garber's Thomas Andrews. | rounds 13 and 14 both assert "Andrews played by Victor Garber on the right" |
+| **X8** | The red-LSB mechanism was **assumed correct before the file was read**. It happens to be right, but stanza 1 of the poem is what states it, and that stanza had never been transcribed. | `leads.md` §3, which asserts "the hidden picture in the red low bit plane" |
+
+Note the tension worth carrying forward: `jonathan`(8) + `hyde`(4) + `victor`(6) +
+`garber`(6) = **exactly 24**, the required answer length, whereas `bernard`(7) +
+`hill`(4) + `victor`(6) + `garber`(6) = 23. The length coincidence therefore
+mildly favours Hyde + Garber, i.e. it argues *against* X7. Unresolved; see
+`analysis/SESSION-FINDINGS-2026-10-01i.md` route A1.
 
 ## 9. `clues/computer_screen.jpg` — the encryption scheme
 

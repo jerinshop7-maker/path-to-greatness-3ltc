@@ -44,6 +44,23 @@ per-segment oracle with a false-positive rate of 2^-64.
   (Great Wall↔Chichén Itzá 12,738 vs 12,772; Angkor Wat↔Uluru 5,219 vs 5,210;
   Machu Picchu↔Giza 12,037 vs 12,061) using exactly six sites for the six
   pictograms — the first numeric foothold on clue 5. Latest route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01i.md` — **round 14.** **Clue 7's carrier
+  is recovered** (`clues/qr2.jpg` → tinyurl → Google Drive → `clues/Ship.png`,
+  2,896,530 bytes, 1920×1080), which retires the repo's biggest gap: three rounds
+  of clue-7 candidates were built on a prose description of a picture nobody had
+  looked at. The poem is transcribed first-hand and **stanza 1 is the extraction
+  instruction** (red channel, least significant bit — confirmed numerically: red
+  plane 0 is the only structured low plane, 0.250 ink against 0.498/0.501/0.511,
+  and there is no nested layer). The montage is **corrected**: the middle element
+  is a ship's *line drawing*, not "deck plans", and the right-hand portrait has a
+  heavy moustache (reads as Smith, not Andrews). All four proposed clue-3 routes
+  refuted (7,758 pairs); **1,609,062 segment-3 pairs swept in total, zero
+  matches**, the 399,986-string description family generated and swept in chunks
+  after three shells were killed by the unsized version. **Clue 3 is now a closed
+  source** — its digits are *redundant* with (position, arrow, successor) in all
+  96 arrow cells, so no digit-reading can beat what the arrows already say.
+  Clue 4's SAN-mate reading is refuted (33 first moves, no forced mate). Latest
+  route tree.
 - `analysis/SESSION-FINDINGS-2026-10-01h.md` — **round 13.** Clue 3's cleanest
   encoding yet: the 8 no-predecessor cells in row-major order, letter for arrows
   and number for stars, give **`d3w1as24`** — confirmed, 8 characters, and it
