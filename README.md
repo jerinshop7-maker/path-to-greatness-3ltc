@@ -44,6 +44,12 @@ per-segment oracle with a false-positive rate of 2^-64.
   (Great Wall↔Chichén Itzá 12,738 vs 12,772; Angkor Wat↔Uluru 5,219 vs 5,210;
   Machu Picchu↔Giza 12,037 vs 12,061) using exactly six sites for the six
   pictograms — the first numeric foothold on clue 5. Latest route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01f.md` — **round 11.** An audit downgrades
+  round 10's geography fit to **UNPROVEN**: all-km is required by the numbers but
+  contradicted by the measured `mi/km/mi` pennants (row 1 is 539 km past the
+  Earth's maximum), row 2 is post-hoc, and the pictograms do not depict the
+  sites. The independent pixel re-check of the pennants is inconclusive (the
+  corridor floor is deep red). Latest route tree.
 - `analysis/leads.md`, `analysis/tested.md` — the prior analyst's open leads and
   negative ledger (kept for continuity, see provenance below).
 - `clues/` — the nine clue files as served by the puzzle site, plus the two
@@ -61,6 +67,10 @@ per-segment oracle with a false-positive rate of 2^-64.
   `tools/scramble_battery2.py`, `tools/sky_decode.py`, `tools/sky_search.py`,
   `tools/beach_candidates.py` — hypothesis generators and batteries, one per
   segment. Every one reports its own scope.
+- `tools/clue5_geo_audit.py` — re-derives round 10's triple, tests its
+  uniqueness inside the canonical eight, its unit consistency, its post-hoc
+  row 2, and a Monte-Carlo null. `tools/clue5_ink.py` — the reproducible pixel
+  attempt at the pictograms/pennants (recorded as inconclusive).
 
 ## Confirmed findings (details and evidence in `analysis/SESSION-FINDINGS-2026-09-30.md`)
 
@@ -137,13 +147,14 @@ Mask classes for `sweep`: `.` printable ASCII, `0` digits, `?` all bytes,
 Open. No segment is solved. The clue poems are assembled from **song lyrics and
 song titles**: clue 5 quotes **six** different prog/metal songs verbatim (line 2
 = Vintersorg, "Astral and Arcane"; the other five from round 6), and lines 1/3
-are the author's instruction. Round 10 is the first numeric foothold on clue 5:
-the three Roman numerals match three real great-circle distances to ≤0.3% under
-the all-km reading, using exactly six sites for the six pictograms. Rounds 8–9
-closed clue 2's last proposed families (the 26-non-capital alphabet key; the
-dash-group / capital–lowercase pairing). Clue 5 cannot be oracle-tested alone
-(segment 2 needs the chess half too), so the only place a real break can land is
-**segment 4** (clue 2's 15-character answer). The most valuable next steps are
-naming the six pictograms as the matched sites and finding the distance →
-20-character extraction, and a reading of clue 2 that none of the closed
-families touches.
+are the author's instruction. Round 10's geography fit (three great-circle
+distances from the three numerals) is **UNPROVEN**: round 11 shows all-km is
+required by the numbers but contradicted by the measured `mi/km/mi` pennants,
+that row 2 is post-hoc, and that the pictograms do not depict the sites; the
+pixel re-check of the pennants is inconclusive. Rounds 8–9 closed clue 2's last
+proposed families (the 26-non-capital alphabet key; the dash-group /
+capital–lowercase pairing). Clue 5 cannot be oracle-tested alone (segment 2 needs
+the chess half too), so the only place a real break can land is **segment 4**
+(clue 2's 15-character answer). The most valuable next steps are a definitive
+pennant measurement, naming the six pictograms against the six songs, and a
+reading of clue 2 that none of the closed families touches.
