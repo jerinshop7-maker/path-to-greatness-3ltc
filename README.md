@@ -44,6 +44,16 @@ per-segment oracle with a false-positive rate of 2^-64.
   (Great Wall↔Chichén Itzá 12,738 vs 12,772; Angkor Wat↔Uluru 5,219 vs 5,210;
   Machu Picchu↔Giza 12,037 vs 12,061) using exactly six sites for the six
   pictograms — the first numeric foothold on clue 5. Latest route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01h.md` — **round 13.** Clue 3's cleanest
+  encoding yet: the 8 no-predecessor cells in row-major order, letter for arrows
+  and number for stars, give **`d3w1as24`** — confirmed, 8 characters, and it
+  needs no metric the clue never states. Still **untestable** (segment 3 needs
+  clue 7). Two claims refuted: the "40,320 interleavings" is 8!, a permutation
+  search rather than a reading of the grid (the grid-faithful family is 70), and
+  clue 2's word↔chunk assignment has no free parameter — lengths pin 6 of 8
+  words and the 15-capital extraction is invariant under all 4 survivors. Four
+  24-character `ship` descriptions rejected, conditionally on the clue-3 half.
+  Latest route tree.
 - `analysis/SESSION-FINDINGS-2026-10-01g.md` — **round 12.** Clue 3's graph
   decomposition is **CONFIRMED and exact**: a 92-cell cycle, 4 entry cells that
   each join it in one step, and 4 numbered stars, summing to 100. The
@@ -83,6 +93,10 @@ per-segment oracle with a false-positive rate of 2^-64.
   200k-trial null model against the "deliberately constructed" claim, enumerates
   the 8-member cycle-rotation family, and shows segment 3 is untestable without
   clue 7.
+- `tools/clue3_root_encoding.py` — reproduces `d3w1as24` and `53214124` from
+  clue 3's eight root cells, sizes the interleaving families correctly (70 vs
+  1,680 vs 40,320), and refutes clue 2's word↔chunk assignment by showing the
+  15-capital extraction is invariant under every length-compatible permutation.
 - `tools/clue5_pennant.py` — measures the three pennants' directions from
   pixels, by thresholding R−G (not absolute red, which the red parquet floor
   defeats) and isolating connected components. Confirms X2 (mi / km / mi) and

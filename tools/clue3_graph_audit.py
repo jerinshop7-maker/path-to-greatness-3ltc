@@ -25,6 +25,12 @@ WHAT THIS TOOL ALSO SHOWS, AGAINST the round-12 enthusiasm:
      given.
   7. Letter-first vs number-first ("w2s1d5a4" vs "2w1s5d4a") is unforced.  The
      grid writes number first, so the string as-the-cells-read is 2w1s5d4a.
+  8. SUPERSEDED by round 13.  The nearest-star rule in section 3 is an operation
+     the clue never states, so it is not needed at all: reading the SAME eight
+     root cells in row-major order and keeping the letter for an arrow-root and
+     the number for a star-root gives d3w1as24 directly.  See
+     tools/clue3_root_encoding.py.  The pairing above is retained only as a
+     record of the route that was tried.
 
 THE DECISIVE POINT (section 8):
   Neither candidate can be tested.  Segment 3's AES key is clue3 || clue7 =
@@ -192,6 +198,11 @@ def main():
     print("no start cell (8 candidates), and the one-to-one pairing that makes the")
     print("star reading look tight occurs ~3% of the time by chance.  Nothing here")
     print("can be confirmed until clue 7's 24 characters exist.")
+    print()
+    print("SUPERSEDED (round 13): the nearest-star rule above is an operation the")
+    print("clue never states, so it is unnecessary.  Reading the same eight root")
+    print("cells in row-major order -- letter for arrows, number for stars -- gives")
+    print("d3w1as24 with no invented metric.  See tools/clue3_root_encoding.py.")
     print()
     print("Companion result this round, on clue 5: tools/clue5_pennant.py")
     print("measures the three pennants by pixels and confirms correction X2")
