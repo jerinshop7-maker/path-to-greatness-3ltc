@@ -61,6 +61,21 @@ per-segment oracle with a false-positive rate of 2^-64.
   96 arrow cells, so no digit-reading can beat what the arrows already say.
   Clue 4's SAN-mate reading is refuted (33 first moves, no forced mate). Latest
   route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01j.md` — **round 18.** Every candidate
+  the round-15..17 write-ups propose was run against the real oracle:
+  **1,069,392 pairs, zero matches** (the side-elevation/bulkheads and IV-derived
+  founder/fall clue-7 registers, both alone against the 1,290 retained clue-3
+  readings and against the full `{w,a,s,d}^8` space; the four chess orderings
+  against every single deletion of the 21-letter Roman string; the clue-2
+  instruction-word and running-sum families against both sky candidates). The
+  load-bearing new result is a **derivation audit**: the write-ups' clue-2
+  strings are mostly *not* reproducible from the rule they state — one matches
+  at 14/15 characters, three are 3–13 characters from any enumerated convention
+  — so they cannot be regenerated or extended, only tested as given. The
+  running-sum string `dtyeimhtiawruik` **is** reproducible and was tested (0/2).
+  Also restores `tools/segsweep.py`, the round-14 driver that
+  `clue3_ship_cross.py`, `clue7_ship_family.py` and `clue7_desc_sweep.py` import
+  but which was never committed. Latest route tree.
 - `analysis/SESSION-FINDINGS-2026-10-01h.md` — **round 13.** Clue 3's cleanest
   encoding yet: the 8 no-predecessor cells in row-major order, letter for arrows
   and number for stars, give **`d3w1as24`** — confirmed, 8 characters, and it
@@ -213,6 +228,9 @@ pixel re-check of the pennants is inconclusive. Rounds 8–9 closed clue 2's las
 proposed families (the 26-non-capital alphabet key; the dash-group /
 capital–lowercase pairing). Clue 5 cannot be oracle-tested alone (segment 2 needs
 the chess half too), so the only place a real break can land is **segment 4**
-(clue 2's 15-character answer). The most valuable next steps are a definitive
+(clue 2's 15-character answer). Round 18 closes the clue-7 side-elevation and
+founder/fall registers (1,069,392 pairs, 0 matches) and shows that a clue-2
+proposal must be stated as a generating rule — string lists without derivations
+cannot be extended. The most valuable next steps are a definitive
 pennant measurement, naming the six pictograms against the six songs, and a
 reading of clue 2 that none of the closed families touches.
