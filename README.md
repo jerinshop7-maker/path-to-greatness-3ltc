@@ -61,6 +61,22 @@ per-segment oracle with a false-positive rate of 2^-64.
   96 arrow cells, so no digit-reading can beat what the arrows already say.
   Clue 4's SAN-mate reading is refuted (33 first moves, no forced mate). Latest
   route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01l.md` — **round 20.** The clue-7
+  full-name register the round-20 write-up proposes (272 exact-24 strings incl.
+  `jbruceismaythomasandrews`, 350,880 pairs; the 34 full-name pairs over the
+  whole `{w,a,s,d}^8` space, 2,228,224 pairs) and the clue-2 marker / instruction
+  -window / chunk-feature families (474 pairs) all close at **2,579,578 pairs,
+  0**. More importantly the recovered carrier is now **measured exactly**: the
+  payload is a ±1 red perturbation of a G(=B) base image, so the montage is the
+  red **parity** plane and the "sign channel" `R != G` is pure noise (no second
+  layer, by an independent method). The montage is **line art** (0.25 ink),
+  **contains no text** — tesseract over the plane at three scales, both
+  polarities, three page-segmentation modes returns only noise — which closes
+  the caption/nameplate branch by measurement, and the two portraits are
+  different images (corr ≈ −0.06). That also **weakens X7b**: "the pixels say
+  Smith" is a judgement about line-art strokes. Finally, the Puzzling
+  StackExchange puzzle is shown to be **derivative, not independent** (it
+   post-dates P2G by two years and has no solution). Latest route tree.
 - `analysis/SESSION-FINDINGS-2026-10-01k.md` — **round 19.** A round-19
   write-up's two testable routes both close. Its "clue 5 = six rebus icons →
   six songs → three **pairs**, each measured by one numeral" model is not swept

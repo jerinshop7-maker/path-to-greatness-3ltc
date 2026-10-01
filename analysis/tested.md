@@ -146,6 +146,20 @@ Family definitions and the derivation audit are in
 |---|---|---|---|
 | Clue 5's "pair of songs, one metadata number" model can produce rows 1 and 3 | **BOUNDED OUT, not swept**: every non-geographic pairwise feature in the write-up's list is bounded below 12,000 (release-date gap max 8,782 days; any single duration < 1,200 s and all six < 3,600 s; track number ≤ 13; title length ≤ 80 letters). Only a surface distance in km (≤ π·R = 20,015 km) or a six-way sum can reach 12,772 / 12,061, and the distance pairs are refuted (round 8). Row 2's 5,210 remains the only reachable pair target, already a ~9 km near-miss | n/a | 2026-10-01 |
 
+## Round 20 negatives, 2026-10-01 (the round-20 write-up)
+
+| Hypothesis | Space (N) | Method | Result | Witness | Date |
+|---|---|---|---|---|---|
+| Segment 3: `ship` is the **full/initial name register** (`jbruceismay`, `thomasandrews`, `edwardsmith`, `victorgarber`, `jonathanhyde`, `bernardhill`, `jbismay`, `tandrews`, `esmith`, plus `and`/`the`/`of` and `titanic`/`ship`/`drawing`/`plans`/`liner`/`ocean`), every string exactly 24 chars, `wasd` structural | 272 x 1,290 = 350,880 | CPU `segsweep` | 0 match — includes the write-up's `jbruceismaythomasandrews` against all 1,290 | yes | 2026-10-01 |
+| Segment 3: the 34 full-name **pair** strings (incl. `jbruceismaythomasandrews`, `thomasandrewsjbruceismay`, `thomasandrewsedwardsmith`, `edwardsmiththomasandrews`), `wasd` any of `{w,a,s,d}^8` | 34 x 65,536 = 2,228,224 | CPU `segsweep` | 0 match | yes | 2026-10-01 |
+| Segment 4: `scramble` from the clue-2 **marker** families (capital position / value / ordinal / delta / ASCII indexing the ciphertext, the instruction in sentence and display order, and the alphabet), the **instruction-window** family (every 15-char window of both instruction orderings), and the **word-chunk feature** shifts (capital count / lowercase count / word length per chunk), `sky` either 17-digit candidate | 237 x 2 = 474 | CPU `segsweep` | 0 match | yes | 2026-10-01 |
+
+| Claim | Scope of the negative | Witness | Date |
+|---|---|---|---|
+| Clue 7's answer can be a caption, name or nameplate written in the recovered image | **CLOSED BY MEASUREMENT, not by another family**: the payload plane is line art (ink 0.250) and tesseract 5.5.0 over it at 1:1/2x/4x, both polarities, psm 6/7/11, whole-plane and per-element and per-candidate-text-line, returns 52 strings of >=3 alphanumerics, all noise. There is no text in the montage to caption | `tools/clue7_montage_scan.py` | 2026-10-01 |
+| The hidden image has a second payload layer | the sign channel `R != G` is pure noise (ink 0.501, block-std 0.032) against the structured parity payload (ink 0.250, block-std 0.197); the carrier is exactly `R = G + d`, `d in {-1,0,+1}`, with `G == B` | `tools/clue7_montage_scan.py` | 2026-10-01 |
+| The Puzzling StackExchange question 122638 ("An anagrammed logic puzzle!") is an independent record of clue 2 | **REFUTED as a source**: posted 2023-10-09, two years after P2G was announced (2021-07-25); one non-accepted partial answer, no solution. Its only new information is the author's comment that "the answer is in the form of a phrase/sentence", which the 15-character instruction-window family now tests (0) | StackExchange API (question/answers/comments) | 2026-10-01 |
+
 ## Uncertified, does not count
 
 | Hypothesis | Space (N) | What went wrong | Status |

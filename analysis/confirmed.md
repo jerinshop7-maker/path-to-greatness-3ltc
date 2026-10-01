@@ -16,7 +16,7 @@ How to read it
   unread picture and a mis-stated board.
 - Negatives live in `analysis/tested.md`; open leads in `analysis/leads.md`.
   This file carries only what is established, plus §7 (what is **not**).
-- Last updated: round 19 (`SESSION-FINDINGS-2026-10-01k.md`).
+- Last updated: round 20 (`SESSION-FINDINGS-2026-10-01l.md`).
 
 ---
 
@@ -112,7 +112,12 @@ How to read it
 | C7.4 | **Red bit plane 0 is the hidden montage** (set fraction 0.250) and is the only structured low plane (planes 1–3 are 0.498/0.501/0.511, pure static). | Measured; `tools/clue7_ship_extract.py` |
 | C7.5 | **There is no nested layer**: after removing a local box blur from plane 0, no pixel carries a further LSB. | `IMAGE-TRANSCRIPTION.md` §8 |
 | C7.6 | The montage middle element is a **ship's line drawing** (hull from the bow quarter, deck openings, foremast and rigging) — **not** "deck plans". | `IMAGE-TRANSCRIPTION.md` §8 (CORRECTION X7) |
-| C7.7 | The right-hand portrait has a **heavy drooping moustache**, which reads as Captain Smith, **not** Andrews. Three earlier rounds built candidates on "Andrews on the right". | (CORRECTION X7b) — see §7 for the unresolved tension |
+| C7.7 | The right-hand portrait has a **heavy drooping moustache**, which reads as Captain Smith, **not** Andrews. Three earlier rounds built candidates on "Andrews on the right". | (CORRECTION X7b) — see §7: round 20 shows this is a judgment about *line art* |
+| C7.8 | **The carrier is exact**: `R = G + d` with `d in {-1, 0, +1}` for every pixel (100% within ±2), and `G == B` everywhere. So the author perturbed the red channel by at most one unit against a base image carried in G/B, and the payload is the red **parity** bit. | `tools/clue7_montage_scan.py`, round 20 §1a |
+| C7.9 | **No second payload layer**: the red LSB plane is structured (ink 0.250, block-std 0.197) while the sign channel `R != G` is pure noise (ink 0.501, block-std 0.032). Independent method from round 14's box-blur test, same conclusion. | round 20 §1a |
+| C7.10 | The montage is **line art** (~0.25 ink, stroke structure, not halftone), spanning y 43–666 of 1080 across the full width. | round 20 §1b |
+| C7.11 | **There is no text in the montage**: OCR (tesseract 5.5.0) over the plane at 1:1/2x/4x, both polarities, psm 6/7/11, whole-plane and per-element and per-candidate-line, returns 52 strings of ≥3 alphanumerics, all line-art noise. | round 20 §1b; `tools/clue7_montage_scan.py` |
+| C7.12 | The two portrait regions are **different images**: normalised correlation −0.059 (mirrored −0.058, rot180 +0.054). | round 20 §1b |
 
 ### Clue 8 — `sky`, 17 (segment 4, with clue 2)
 
@@ -153,6 +158,7 @@ about a *family*, not about a single candidate.
 | N8 | Clue 2's word↔chunk permutation is unobservable (all 4 length-compatible assignments give identical output). | C2.9 |
 | N9 | The clue-5 all-km geography solution is **closed**: under the measured units row 1 is 539 km past π·R, and no band-origin pair supplies rows 1 or 3. | C5.7; rounds 8, 11–12 |
 | N10 | Reading each clue-8 value as a single letter index is impossible (two values need a title ≥ 18 letters; one exists). | Same counting argument as N1 |
+| N12 | Clue 7's answer cannot be a caption, name or nameplate written in the recovered image: **the montage contains no text** (OCR negative over three scales, both polarities, three page-segmentation modes). The characters must be derived from what is depicted, and generated description families are exhausted (3.0 M pairs across rounds 14–20). | C7.11; round 20 §1b |
 | N11 | Clue 5's "two songs, one metadata number" model **cannot produce rows 1 or 3**: every non-geographic pairwise feature is bounded below 12,000 — release-date gap max 8,782 days, any single duration < 1,200 s and all six < 3,600 s, track number ≤ 13, title length ≤ 80 letters. Only a surface distance in km (≤ π·R = 20,015 km) or a six-way sum can reach 12,772 / 12,061, and the distance pairs are refuted. Row 2 (5,210) is the only reachable pair target. | Round 19 §2a (bound); round 8 (no origin pair near rows 1/3); round 11 (the six-way coincidence) |
 
 ## 5. Confirmed negatives with their measured scope
@@ -197,7 +203,10 @@ status; the detail is in the round files and `analysis/leads.md`.
 | `sky = 58112171456182114` | 🟡 UNCONFIRMED (repo's earlier structural candidate) |
 | `wasd = d3w1as24` | 🟡 CONFIRMED as an **encoding**, unconfirmed as an answer, and untestable until clue 7 exists |
 | Every clue-7 `ship` string so far | 🔴 0 match — and the 24-character answers are *joint* refutations (they also assume a clue-3 half) |
-| The two faces being Ismay + Andrews | ⚠️ **CONTESTED** — the repo's pixel reading says the right portrait has Smith's moustache (X7b), while an external cross-check argues Andrews; the 24-length coincidence (`hyde`+`garber`) favours the Andrews reading. Unresolved, and it decides every name-based clue-7 family |
+| The two faces being Ismay + Andrews (or Smith) | ⚠️ **CONTESTED and now harder** — X7b's "pixels say Smith" is a judgment about **line-art strokes**, not a photograph (C7.10), while the 24-length coincidence (`hyde`+`garber`) favours the Andrews reading. Unresolved, it decides every name-based clue-7 family, and round 20 shows the image alone probably cannot settle it |
+| The full-name clue-7 register (`jbruceismay`, `thomasandrews`, `edwardsmith`, initials, incl. `jbruceismaythomasandrews`) | 🔴 0 match — 350,880 pairs against the 1,290 retained clue-3 readings and 2,228,224 against `{w,a,s,d}^8` |
+| A caption/name/nameplate as the clue-7 answer | 🔴 **CLOSED by measurement** (N12) |
+| The Puzzling StackExchange puzzle 122638 as an independent source for clue 2 | 🔴 **REFUTED** — it post-dates P2G by two years (2023-10-09 vs 2021-07-25) and has no posted solution; its only new information is the author's phrase/sentence hint, and the 15-character instruction-window family it motivates is 0/108 |
 | The clue-5 pictograms ↔ the six songs/sites | 🟡 unverified pairing (4 of 6 fit naturally; sprig and mask are guesses) |
 | The clue-5 three-numeral → 20-character extraction | 🟡 mechanism unknown |
 | Six rebus icons → six songs → three **directed pairs** measured by the three numerals | 🔴 the pair-model payoff is bounded out for rows 1 and 3 (N11: **0 pairwise hits in 643 measured features**); the icon↔song pairing itself stays a plausible but unverified inference |
