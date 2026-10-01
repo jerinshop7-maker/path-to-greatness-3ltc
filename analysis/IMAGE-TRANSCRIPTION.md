@@ -173,7 +173,34 @@ three pictograms followed by a Roman numeral with a vinculum and then a **pennan
 
 The nine pictograms, hand-drawn in red crayon outline:
 
+| row | pictogram 1 | pictogram 2 | pictogram 3 | numeral (with vinculum) | value | pennant points |
+|---|---|---|---|---|---|---|
+| 1 | **headstone with a heart**, rounded-top slab, heart carved in the middle, **zigzag bottom edge** | the triangle glyph, **rotated apex-down** | **flowering branch / sprig** — stem, leaves, a small flower | `X̅M̅MDCCLXXII` (bar over `XM`, 11 letters) | **12,772** | **RIGHT** |
+| 2 | **anchor** | the triangle glyph, **apex-up** | **beast / dragon head**, horns, ears, angry brows, eye, fangs | `V̅CCX` (bar over `V`, 4 letters) | **5,210** | **LEFT** |
+| 3 | **horned mask**, two horns, rectangular face, two eyes | the triangle glyph, **apex-up** (identical to row 2) | **star ? star** | `X̅M̅MLXI` (bar over `XM`, 6 letters) | **12,061** | **RIGHT** |
 
+The **triangle glyph** is one drawing used three times, verified pixel by pixel: a
+triangle with a **crossbar across its flat edge** and one half filled solid while
+the other half is left outlined. In row 1 it points **down** (crossbar on top,
+right half solid); rows 2 and 3 point **up** (crossbar at the bottom, left half
+solid) — i.e. row 1 is the exact 180° rotation of rows 2/3. Because the same
+symbol is reused with only its orientation changed it is behaving as a **direction
+indicator**, not as three separate landmarks — leaving **six** non-triangle
+pictograms.
+
+Pennant direction is **→ ← →**. `KM` is on the left wall, `mi` on the right, so
+**row 1 = miles, row 2 = kilometres, row 3 = miles** (CORRECTION X2). This is
+**CONFIRMED by pixels**, not only by eye — see `tools/clue5_pennant.py` and
+round 12 in `SESSION-FINDINGS-2026-10-01g.md`; it isolates the crayon by
+thresholding R−G (background floor/wall sit at ≈ 80, crayon at 120–255, clean
+bimodal gap) and measures the pennant ink-height profiles `0.93 → 0.10` (row 1),
+`0.09 → 0.88` (row 2), `0.91 → 0.06` (row 3).
+Values: 12,772 mi · 5,210 km · 12,061 mi
+(= 20,554 km · 5,210 km · 19,411 km).
+
+**Row 1 is therefore impossible as a great-circle distance on Earth**: 20,554 km
+exceeds the maximum π·R = 20,015 km by 539 km, which closes the all-km geography
+reading as a solution to clue 5.
 
 Roman-numeral **letter counts are 11 + 4 + 6 = 21**, against a 20-character
 answer (CORRECTION X3) — one letter too many, which is itself a clue.
