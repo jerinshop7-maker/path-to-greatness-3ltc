@@ -29,7 +29,12 @@ per-segment oracle with a false-positive rate of 2^-64.
   round-6 "unidentified" was wrong), lines 1 and 3 are the author's
   instruction, and "the eight wonders" forks between New7Wonders+Giza and the
   author's own 8-track *Archaic Reveries*. The music corpus supplies no clue-2
-  answer (924 pairs, 0). Latest route tree.
+  answer (924 pairs, 0).
+- `analysis/SESSION-FINDINGS-2026-10-01c.md` — **round 8.** Clue 2's "26
+  non-capitals = alphabet key" route is refuted (1,788 pairs, 0), and the
+  clue-5 geography revival fails on arithmetic: under the `mi/km/mi` reading row
+  1 is 540 km beyond Earth's maximum great-circle distance, and no band-origin
+  pair supplies rows 1 or 3. Latest route tree.
 - `analysis/leads.md`, `analysis/tested.md` — the prior analyst's open leads and
   negative ledger (kept for continuity, see provenance below).
 - `clues/` — the nine clue files as served by the puzzle site, plus the two
@@ -120,12 +125,15 @@ Mask classes for `sweep`: `.` printable ASCII, `0` digits, `?` all bytes,
 
 ## Status
 
-Open. No segment is solved. The round-7 finding is that the clue poems are
-assembled from **song lyrics and song titles**: clue 5 quotes **six** different
-prog/metal songs verbatim (line 2 = Vintersorg, "Astral and Arcane"; the other
-five from round 6), and lines 1/3 are the author's instruction. Clue 5 cannot be
-oracle-tested alone (segment 2 needs the chess half too), so the only place a
-real break can land is **segment 4** (clue 2's 15-character answer). The most
-valuable next steps are settling the "eight wonders" fork (New7Wonders+Giza vs
-the author's 8-track *Archaic Reveries*), making the pictogram↔song pairing
-systematic, and re-attacking clue 2.
+Open. No segment is solved. The clue poems are assembled from **song lyrics and
+song titles**: clue 5 quotes **six** different prog/metal songs verbatim (line 2
+= Vintersorg, "Astral and Arcane"; the other five from round 6), and lines 1/3
+are the author's instruction. Round 8 closed clue 2's "26 non-capitals =
+alphabet key" route (1,788 pairs, 0) and showed the clue-5 geography revival
+fails on arithmetic (under `mi/km/mi` row 1 exceeds Earth's maximum distance, and
+no band-origin pair gives rows 1 or 3). Clue 5 cannot be oracle-tested alone
+(segment 2 needs the chess half too), so the only place a real break can land is
+**segment 4** (clue 2's 15-character answer). The most valuable next steps are
+the author-controlled *Archaic Reveries* 8-track reading of "eight wonders",
+making the pictogram↔song pairing systematic, and a genuinely new reading of
+clue 2.
