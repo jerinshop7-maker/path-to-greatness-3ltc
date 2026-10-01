@@ -102,6 +102,13 @@ per-segment oracle with a false-positive rate of 2^-64.
   Earth's maximum), row 2 is post-hoc, and the pictograms do not depict the
   sites. The independent pixel re-check of the pennants is inconclusive (the
   corridor floor is deep red). Latest route tree.
+- `analysis/confirmed.md` — **the consolidated register of every CONFIRMED
+  finding across all rounds**, with its evidence and tool. Organised as: the
+  puzzle's own machinery; clue by clue; cross-cutting facts; confirmed
+  impossibilities and exact boundaries; negatives with their measured scope;
+  the settled corrections (X1–X10, including the malformed clue-4 FEN); and a
+  final section listing what is **not** confirmed, so a live hypothesis is never
+  cited as a fact.
 - `analysis/leads.md`, `analysis/tested.md` — the prior analyst's open leads and
   negative ledger (kept for continuity, see provenance below).
 - `clues/` — the nine clue files as served by the puzzle site, plus the two
