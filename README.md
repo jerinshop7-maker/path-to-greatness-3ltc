@@ -44,6 +44,16 @@ per-segment oracle with a false-positive rate of 2^-64.
   (Great Wall↔Chichén Itzá 12,738 vs 12,772; Angkor Wat↔Uluru 5,219 vs 5,210;
   Machu Picchu↔Giza 12,037 vs 12,061) using exactly six sites for the six
   pictograms — the first numeric foothold on clue 5. Latest route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01g.md` — **round 12.** Clue 3's graph
+  decomposition is **CONFIRMED and exact**: a 92-cell cycle, 4 entry cells that
+  each join it in one step, and 4 numbered stars, summing to 100. The
+  star-nearest pairing is genuinely one-to-one under both distance metrics. But
+  it is **not evidence of authorship** (3.4% of random placements look the same),
+  "cycle order" yields **8** candidates rather than 1, and — decisively —
+  **no clue-3 candidate is testable**, since segment 3's key is clue 3 ‖ clue 7.
+  Clue 7 is the bottleneck. Also **confirms correction X2 by pixels**: the three
+  pennants measure right / left / right, stable at every threshold from 110 to
+  150, which closes round 10's all-km geography as a solution. Latest route tree.
 - `analysis/SESSION-FINDINGS-2026-10-01f.md` — **round 11.** An audit downgrades
   round 10's geography fit to **UNPROVEN**: all-km is required by the numbers but
   contradicted by the measured `mi/km/mi` pennants (row 1 is 539 km past the
@@ -67,6 +77,16 @@ per-segment oracle with a false-positive rate of 2^-64.
   `tools/scramble_battery2.py`, `tools/sky_decode.py`, `tools/sky_search.py`,
   `tools/beach_candidates.py` — hypothesis generators and batteries, one per
   segment. Every one reports its own scope.
+- `tools/clue3_graph_audit.py` — reproduces clue 3's 92-cycle / 4-entry / 4-star
+  decomposition from the authoritative transcription, confirms the star-nearest
+  pairing is one-to-one under Manhattan *and* Euclidean distance, then runs a
+  200k-trial null model against the "deliberately constructed" claim, enumerates
+  the 8-member cycle-rotation family, and shows segment 3 is untestable without
+  clue 7.
+- `tools/clue5_pennant.py` — measures the three pennants' directions from
+  pixels, by thresholding R−G (not absolute red, which the red parquet floor
+  defeats) and isolating connected components. Confirms X2 (mi / km / mi) and
+  derives every printed conclusion from the measurement.
 - `tools/clue5_geo_audit.py` — re-derives round 10's triple, tests its
   uniqueness inside the canonical eight, its unit consistency, its post-hoc
   row 2, and a Monte-Carlo null. `tools/clue5_ink.py` — the reproducible pixel
@@ -147,7 +167,14 @@ Mask classes for `sweep`: `.` printable ASCII, `0` digits, `?` all bytes,
 Open. No segment is solved. The clue poems are assembled from **song lyrics and
 song titles**: clue 5 quotes **six** different prog/metal songs verbatim (line 2
 = Vintersorg, "Astral and Arcane"; the other five from round 6), and lines 1/3
-are the author's instruction. Round 10's geography fit (three great-circle
+are the author's instruction. Clue 3's pointer graph is **exactly** 92 cells in
+one closed cycle plus 4 one-step entry cells plus 4 numbered stars, and the
+star-nearest pairing is one-to-one — but round 12 shows that pairing is a ~3%
+chance property, that "cycle order" is an 8-member rotation family rather than a
+single candidate, and that **clue 3 cannot be tested until clue 7 is**, since
+segment 3's key is `clue3 ‖ clue7`. Clue 7 is therefore the bottleneck, and its
+24-character length is a filter that rules out the quotation and name families
+outright. Round 10's geography fit (three great-circle
 distances from the three numerals) is **UNPROVEN**: round 11 shows all-km is
 required by the numbers but contradicted by the measured `mi/km/mi` pennants,
 that row 2 is post-hoc, and that the pictograms do not depict the sites; the
