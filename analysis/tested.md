@@ -135,6 +135,17 @@ Family definitions and the derivation audit are in
 | `dtyeimhtiawruik` implements round 17's running-sum reading | CONFIRMED as a derivation (1-based conversion, no dash reset, emit after adding); REFUTED as an answer, 0 match against both skies | yes | 2026-10-01 |
 | Segment 3 can be attacked with new `ship` families | bounded negatively: the two new registers plus the full `{w,a,s,d}^8` space give 1,069,216 cumulative pairs with 0 matches (round 18 total across all segments: 1,069,392) | yes | 2026-10-01 |
 
+## Round 19 negatives, 2026-10-01 (the round-19 write-up)
+
+| Hypothesis | Space (N) | Method | Result | Witness | Date |
+|---|---|---|---|---|---|
+| Segment 4: `scramble` from the **widened** character-aligned anagram-word family (key source = word A=0 / word ASCII / position-in-word / position-in-chunk / chunk's first ciphertext char; operation +/-; output mod-26 letter or printable ASCII; positional or compact alignment; 4 word assignments), `sky` either 17-digit candidate | 69 x 2 = 138 | CPU `segsweep` | 0 match (5 candidates dropped on length — the ASCII-output variants can contain a space, which `fix_clues.script` removes — and reported) | yes | 2026-10-01 |
+| Clue 5: the three numerals as a pairwise metadata feature of the six confirmed quoted songs (all pairwise differences, sums and length products over year / track / title, artist and album lengths / title ASCII sum / quoted-line index, letters and words, plus six-way sums) | 643 distinct feature values, exact and ±1 / ±9 / ±35 | CPU search | 1 exact hit, and it is the **six-way** `Σyears + Σtracks = 12,061` already recorded as a coincidence in round 11; **0 pairwise hits** at any tolerance | n/a | 2026-10-01 |
+
+| Claim | Scope of the negative | Witness | Date |
+|---|---|---|---|
+| Clue 5's "pair of songs, one metadata number" model can produce rows 1 and 3 | **BOUNDED OUT, not swept**: every non-geographic pairwise feature in the write-up's list is bounded below 12,000 (release-date gap max 8,782 days; any single duration < 1,200 s and all six < 3,600 s; track number ≤ 13; title length ≤ 80 letters). Only a surface distance in km (≤ π·R = 20,015 km) or a six-way sum can reach 12,772 / 12,061, and the distance pairs are refuted (round 8). Row 2's 5,210 remains the only reachable pair target, already a ~9 km near-miss | n/a | 2026-10-01 |
+
 ## Uncertified, does not count
 
 | Hypothesis | Space (N) | What went wrong | Status |

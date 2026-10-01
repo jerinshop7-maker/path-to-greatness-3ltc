@@ -61,6 +61,19 @@ per-segment oracle with a false-positive rate of 2^-64.
   96 arrow cells, so no digit-reading can beat what the arrows already say.
   Clue 4's SAN-mate reading is refuted (33 first moves, no forced mate). Latest
   route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01k.md` — **round 19.** A round-19
+  write-up's two testable routes both close. Its "clue 5 = six rebus icons →
+  six songs → three **pairs**, each measured by one numeral" model is not swept
+  but **bounded out**: every non-geographic pairwise feature is below 12,000
+  (max release-date gap 8,782 days; durations < 3,600 s; tracks ≤ 13;
+  titles ≤ 80 letters), so rows 1 and 3 (12,772 / 12,061) can only be a surface
+  km distance (refuted, round 8) or a six-way sum — and across 643 measured
+  features the single exact hit is the six-way `Σyears + Σtracks = 12,061`
+  recorded as a coincidence in round 11, with **zero pairwise hits at any
+  tolerance**. Its widened clue-2 "character-aligned anagram words" family
+  (ASCII diff/sum, ranks, word/chunk positions, positional or compact alignment)
+  gives 69 candidates × 2 skies = **138 pairs, 0** (5 dropped on length,
+  reported). Latest route tree.
 - `analysis/SESSION-FINDINGS-2026-10-01j.md` — **round 18.** Every candidate
   the round-15..17 write-ups propose was run against the real oracle:
   **1,069,392 pairs, zero matches** (the side-elevation/bulkheads and IV-derived
@@ -144,6 +157,16 @@ per-segment oracle with a false-positive rate of 2^-64.
   uniqueness inside the canonical eight, its unit consistency, its post-hoc
   row 2, and a Monte-Carlo null. `tools/clue5_ink.py` — the reproducible pixel
   attempt at the pictograms/pennants (recorded as inconclusive).
+
+- `tools/segsweep.py` — the small CPU cross-product driver the round-13/14
+  tools import (normalise, **report** length drops, plant a witness per call);
+  restored in round 18 after it turned out never to have been committed.
+  `tools/round18_battery.py` — the round-15..17 test plan (new clue-7 registers
+  × the 1,290 retained clue-3 readings and × `{w,a,s,d}^8`; chess × the Roman
+  deletion family; the clue-2 instruction-word and running-sum families × both
+  skies), with a `--wasd8` switch. `tools/round19_battery.py` — the clue-5
+  pair-model reachability bounds and feature search, and the widened clue-2
+  aligned-word family.
 
 ## Confirmed findings (details and evidence in `analysis/SESSION-FINDINGS-2026-09-30.md`)
 

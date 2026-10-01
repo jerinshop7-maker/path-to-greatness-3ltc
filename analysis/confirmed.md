@@ -16,7 +16,7 @@ How to read it
   unread picture and a mis-stated board.
 - Negatives live in `analysis/tested.md`; open leads in `analysis/leads.md`.
   This file carries only what is established, plus §7 (what is **not**).
-- Last updated: round 18 (`SESSION-FINDINGS-2026-10-01j.md`).
+- Last updated: round 19 (`SESSION-FINDINGS-2026-10-01k.md`).
 
 ---
 
@@ -153,6 +153,7 @@ about a *family*, not about a single candidate.
 | N8 | Clue 2's word↔chunk permutation is unobservable (all 4 length-compatible assignments give identical output). | C2.9 |
 | N9 | The clue-5 all-km geography solution is **closed**: under the measured units row 1 is 539 km past π·R, and no band-origin pair supplies rows 1 or 3. | C5.7; rounds 8, 11–12 |
 | N10 | Reading each clue-8 value as a single letter index is impossible (two values need a title ≥ 18 letters; one exists). | Same counting argument as N1 |
+| N11 | Clue 5's "two songs, one metadata number" model **cannot produce rows 1 or 3**: every non-geographic pairwise feature is bounded below 12,000 — release-date gap max 8,782 days, any single duration < 1,200 s and all six < 3,600 s, track number ≤ 13, title length ≤ 80 letters. Only a surface distance in km (≤ π·R = 20,015 km) or a six-way sum can reach 12,772 / 12,061, and the distance pairs are refuted. Row 2 (5,210) is the only reachable pair target. | Round 19 §2a (bound); round 8 (no origin pair near rows 1/3); round 11 (the six-way coincidence) |
 
 ## 5. Confirmed negatives with their measured scope
 
@@ -199,6 +200,7 @@ status; the detail is in the round files and `analysis/leads.md`.
 | The two faces being Ismay + Andrews | ⚠️ **CONTESTED** — the repo's pixel reading says the right portrait has Smith's moustache (X7b), while an external cross-check argues Andrews; the 24-length coincidence (`hyde`+`garber`) favours the Andrews reading. Unresolved, and it decides every name-based clue-7 family |
 | The clue-5 pictograms ↔ the six songs/sites | 🟡 unverified pairing (4 of 6 fit naturally; sprig and mask are guesses) |
 | The clue-5 three-numeral → 20-character extraction | 🟡 mechanism unknown |
+| Six rebus icons → six songs → three **directed pairs** measured by the three numerals | 🔴 the pair-model payoff is bounded out for rows 1 and 3 (N11: **0 pairwise hits in 643 measured features**); the icon↔song pairing itself stays a plausible but unverified inference |
 | `Charting the eight wonders` = New7Wonders+Giza or the author's 8-track album | 🟡 open fork (geography closed as a solution, C5.7) |
 | The clue-4 "symbol that's flown" = International Code of Signals | 🟡 untested |
 | Clue-4 `chess` = 14 pieces − 2 kings, ordered "front lines to the throne" | 🟡 structural only |
