@@ -13,8 +13,17 @@ per-segment oracle with a false-positive rate of 2^-64.
 
 ## What this repository contains
 
-- `analysis/SESSION-FINDINGS-2026-09-30.md` — **start here.** Confirmed findings,
-  corrections to the prior analysis, every new negative, and the ranked route tree.
+- `analysis/IMAGE-TRANSCRIPTION.md` — **every clue image read directly, by eye.**
+  Authoritative text for all nine files, with the six corrections this pass found
+  (clue 5's missing poem lines, the pennant directions, the Roman vincula, clue 8's
+  13 question marks). Wins over the older transcriptions where they disagree.
+- `analysis/SESSION-FINDINGS-2026-09-30.md` — Confirmed findings, corrections to
+  the prior analysis, every new negative, and the ranked route tree.
+- `analysis/SESSION-FINDINGS-2026-10-01.md` — **round 6.** The clue poems are
+  lyric collages: clue 5's lines 4–8 quote Falkenbach, Nightwish, Pink Floyd,
+  Coheed and Cambria and Alestorm verbatim. The album order and clue-2's `J`
+  glyph are re-confirmed; positional/keyboard/in-image-highlight readings of
+  clue 2 are refuted. Latest route tree.
 - `analysis/leads.md`, `analysis/tested.md` — the prior analyst's open leads and
   negative ledger (kept for continuity, see provenance below).
 - `clues/` — the nine clue files as served by the puzzle site, plus the two
@@ -105,6 +114,10 @@ Mask classes for `sweep`: `.` printable ASCII, `0` digits, `?` all bytes,
 
 ## Status
 
-Open. No segment is solved. The most valuable next steps are the twenty-second
-per-hypothesis convention sweep on segment 1, a human reading of the clue-2
-anagram words (OCR fails on that font), and naming clue 5's pictograms.
+Open. No segment is solved. The round-6 finding is that the clue poems are
+assembled from **song lyrics and song titles** (clue 5 quotes five different
+prog/metal songs verbatim), which reframes clue 5's "eight wonders" as a
+playlist and makes song material a first-class answer hypothesis. The most
+valuable next steps are identifying the remaining quoted songs (lines 1–3),
+checking the quoted songs' album/track data against the three Roman numerals,
+and naming clue 5's pictograms.

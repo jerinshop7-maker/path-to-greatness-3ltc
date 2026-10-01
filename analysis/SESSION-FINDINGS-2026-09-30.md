@@ -262,6 +262,71 @@ signal.
 
 Tools: `tools/seg4_clue2_wide.py`, `tools/clue2_layout.py`.
 
+## 5e. Round 5 (2026-10-01): the images were read directly, by eye
+
+Every text-bearing element of all nine clue files has now been read visually
+(crops upscaled 3–10x with LANCZOS), not by OCR. The full authoritative
+transcription is **`analysis/IMAGE-TRANSCRIPTION.md`**; where it disagrees with
+the older files it wins. Six corrections, four of them substantive.
+
+| # | Correction | Why it matters |
+|---|---|---|
+| **X1** | **Clue 5's poem has 8 lines, not 4.** Lines 1, 5, 6, 7 — "Charting the eight wonders", "We used to swim the same moonlight waters", "Dragged by the force of some inner tide", "No longer will we wait for your answers" — were absent from every earlier transcription. | "Charting the eight wonders" is line 1 and is very likely the clue's real instruction. The eight lines also change what "A bit of help from each line" can mean. |
+| **X2** | **The clue-5 pennants do not all point the same way: they are → ← →.** With `KM` on the left wall and `mi` on the right, the units are **miles, kilometres, miles** — 12,772 mi · 5,210 km · 12,061 mi. | The pasted analysis asserted all three point toward `KM` and rebuilt its whole landmark-distance route on "all three are kilometres". That reading is **wrong**; the two landmark-distance figures quoted (12,738 km, 12,037 km) are compared against numbers that are not all kilometres. |
+| **X3** | **The Roman numerals carry vincula.** `X̅M̅MDCCLXXII` is 12,772, not 2,782 — the bar spans `XM` = 11,000. The repo's three values were right, but only because the bar was applied. **Their letter counts are 11 + 4 + 6 = 21**, against a 20-character answer. | 21 Roman letters vs 20 answer characters is a hard off-by-one that nobody had recorded, and it constrains any "the numerals are the answer letters" reading. |
+| **X4** | Clue 2's second text line is **indented** ~6–7 monospace cells relative to line 1. | Dropped by OCR. Lines 1–2 use a ~28.9 px pitch and line 3 a ~20.5 px pitch (it is 41 characters). |
+| **X5** | **Clue 8's panel carries far more than the two examples**: exactly **13 question marks**, a curved arrow from the examples to them, decorative key / winding paths / padlock art, and three emoji icon groups (film, retro TV, three stars) plus anchor and horned-face icons. | Confirms 13 cells → 13 letters → 17 digits is the intended shape, and the trailing dash at cell 13 is a terminator (cells 1–12 give exactly 17 digits). |
+| **X6** | Clue 5 pictogram 1 of row 1 is a **headstone with a heart** (zigzag base), not a map pin. Row 1's third pictogram is a **flowering sprig**. | Nobody had transcribed the pictograms at all. |
+
+Also newly recorded: clue 5's triangle glyph is **one drawing used three times** —
+a triangle with a crossbar on its flat edge, one half solid and one half outlined —
+rotated 180° between row 1 (apex down) and rows 2/3 (apex up). Since the symbol is
+reused with only its orientation changed it is behaving as a **direction
+indicator**, not three separate landmarks, leaving **six** non-triangle pictograms.
+
+### Clue 3's grid, transcribed and re-derived
+
+`tools/wasd_grid.py` holds the eye-read 10×10 table (two independent read passes
+agreed cell for cell). Running it **reproduces the repo's claimed structure from
+scratch**: a 93-cell chain, 4 isolated stars, and **exactly 8 cells with no
+predecessor** — 4 stars plus 4 arrow cells whose directions are **D, W, A, S**,
+one of each WASD key. New fact: the four non-star roots carry all four WASD
+directions, which matters because the clue is named `wasd` and the answer is 8
+characters. `tools/wasd_trace.py` and `tools/wasd_walk.py` trace the chains.
+Note the 4 duplicate-predecessor cells (r1c7, r2c9, r8c6, r10c1) and 3 arrows
+that leave the grid (r4c9, r8c10, r9c1), so the graph is not a clean 92-cycle.
+
+### New negatives, round 5
+
+| Family | Space | Result |
+|---|---|---|
+| **Clue 2 three-layer rule** — anagram word + case mask + ciphertext char simultaneously: operand A,B ∈ {word letter, cipher letter, 1-based position}, op ∈ {+,−}, word form ∈ {canonical, as displayed}, ordering ∈ {display, sentence}, emit ∈ {capitals only, all letters}, plus the **ordering-key** variant (numbers sort the capitals) | 112 distinct 15-char candidates × 2 skies | 0 (`tools/clue2_three_layer.py`) |
+| Segment 1: `imagine = 1941071219410712` fixed, `beach = 536531276755365` + 1..4 free printable | 95 → 81.5 M | 0 (`tools/seg1_sweep.py`) |
+| Segment 1: `beach = 536531276755` + 4 free | 81,450,625 | 0 |
+
+**Tooling bug found and fixed this round.** `sweep.c` mask classes are `.`
+printable, `0` digit, `?` all bytes, `r` mirror; every other character is *fixed*.
+Passing the template as its own mask therefore silently frees every literal `0`
+in it — a first attempt at the 1-free-character sweep reported "3 variable
+positions, space = 9500" instead of "1 variable position, space = 95", i.e. it
+was searching a different and much larger space than intended. Fixed positions now
+use an explicit `x`. Any earlier sweep that reused its template as the mask must
+be re-checked.
+
+### Still open
+
+- The 9.5e9-key segment-1 sweep (`imagine` = any 8-digit block written twice ×
+  `beach` = `536531276755365` + any printable) was **launched but did not finish**
+  before a machine restart; it has been relaunched detached. It is not a result.
+- Clue 5's six pictograms are still unnamed, but they are now described precisely
+  enough to be recognised: headstone-with-heart, flowering sprig, anchor, horned
+  beast head, horned mask, star-?-star. With the corrected **mi / km / mi** units
+  the distances are 20,554 km, 5,210 km and 19,411 km.
+- Clue 3's 8 no-predecessor cells are confirmed but no reading of them has been
+  shown to be English.
+- Clue 4's position is now transcribed exactly: `4r1k1p1/pp3np1/8/6N1/3B4/1QP5/2K5/8 w`,
+  14 pieces. Unread.
+
 ## 5d. Route tree (round 4)
 
 ```
