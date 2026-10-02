@@ -273,6 +273,7 @@ static int selftest(void){
     {
         uint8_t inv_tbl[256], S[256];
         int have_all=1;
+        memset(inv_tbl,0,sizeof inv_tbl);   /* inv_tbl[0] = 0: never set below */
         for(int a=1;a<256;a++){
             int found=0;
             for(int b=1;b<256;b++){

@@ -159,8 +159,17 @@ cipher was **removed rather than trusted**, and witness generation moved to
 
 `seg3_cross.c selftest` re-derives the S-box from its own definition —
 multiplicative inverse in GF(2⁸) plus the affine map — and requires all 256 bytes
-to match, plus an independent `ISBOX ∘ SBOX = id` check. That is what caught two
-transcription errors in my own first draft of the tables.
+to match, plus an independent `ISBOX ∘ SBOX = id` check. That check caught two
+transcription errors in my own first draft of the tables, and then caught a
+second bug of its own: the derivation left `inv_tbl[0]` uninitialised and read it
+back, so the selftest failed on roughly one run in four with identical output
+either way. Fixed by zeroing the table; 20 consecutive clean runs since. That
+bug was in the *verification* code, not the search, and
+`tools/seg3_crosscheck.py` — which compares against pycryptodome and is
+deterministic — passed throughout, before and after. It is recorded here because
+a flaky self-test is exactly the kind of thing that should invalidate
+conclusions, and the right response is to find and fix it rather than to keep
+running sweeps and hope.
 
 `tools/seg3_crosscheck.py` is the validation that matters for a search engine:
 it takes 3,504 keys — the repo's structural clue-3 readings crossed with its
@@ -169,22 +178,37 @@ requires the C engine's full 16-byte plaintext to equal pycryptodome's on every
 one. **0 disagreements.** A zero-hit result only means something if the engine
 would have found a real answer, and this is the test that establishes it.
 
-Rate: ~1.3M keys/s/core, so ~19 minutes per clue-7 candidate.
+Rate: measured ~2.4M keys/s/core, so ~10 minutes per clue-7 candidate.
 
-**The list is 7 strings, deliberately.** An unconditional negative costs 19
+**The list is 7 strings, deliberately.** An unconditional negative costs ~10
 minutes, so this buys a complete sweep of the clue-3 side for a few *considered*
 readings — not breadth over generated families. `tools/clue7_solo_sweep.py`
 holds the list and reports each result with its own scope.
 
-### First result
+### The full first pass: 10,330,523,392 keys, 0 matches, 7/7 certified
 
-| clue-7 candidate | clue-3 space | keys | result |
-|---|---|---|---|
-| `victorgarberjonathanhyde` | `wasd0123456789^8` | 1,475,789,056 | **no match, witness re-found** |
+| clue-7 candidate | register | keys swept | result | wall time |
+|---|---|---|---|---|
+| `victorgarberjonathanhyde` | actor pair | 1,475,789,056 | **no match** | 6.7 min |
+| `jonathanhydevictorgarber` | actor pair, other order | 1,475,789,056 | **no match** | 7.6 min |
+| `edwardsmiththomasandrews` | character pair | 1,475,789,056 | **no match** | 10.1 min |
+| `thomasandrewsedwardsmith` | character pair, other order | 1,475,789,056 | **no match** | 10.3 min |
+| `smithandrewsdeckplanlast` | deck plans | 1,475,789,056 | **no match** | 10.3 min |
+| `thenightmovestomakerofit` | stanza-2 fate | 1,475,789,056 | **no match** | 10.2 min |
+| `thecoldnightmovestomaker` | stanza-2 fate | 1,475,789,056 | **no match** | 10.2 min |
 
-That is the first clue-7 negative in this repository that is not conditional on
-a guess about clue 3. The remaining six were still running when the session
-ended.
+**7 of 7 runs re-found their planted witness before reporting.** Measured rate
+~2.4M keys/s/core, so ~10 minutes per candidate rather than the 19 I estimated —
+which makes this cheaper than expected and therefore worth repeating on the next
+considered readings.
+
+This is the first batch of clue-7 negatives in the repository that are
+**unconditional**. None of them depends on a clue-3 reading being right.
+
+What it does *not* do is narrow the search space of clue 7 in any useful way: it
+removes four registers (all of them name-based, plus two fate phrasings) and
+leaves the answer unidentified. But it removes them *properly*, which the 3.0M
+pairs of rounds 18–20 did not.
 
 ## 6. Ledger
 
@@ -204,8 +228,8 @@ ended.
 | "caption branch closed by measurement" | 🟡 stands, but the reason must be restated (§4) |
 | pre-round-21 clue-3 spaces cannot hold a mixed answer | 🟢 **CONFIRMED** — `{w,a,s,d}^8 ∪ {0-9}^8` excludes every retained reading |
 | C engine == pycryptodome on 3,504 real keys | 🟢 **CONFIRMED**, 0 disagreements |
-| C engine selftest (S-box re-derivation, 256/256) | 🟢 **CONFIRMED** |
-| `victorgarberjonathanhyde` as clue 7 | 🔴 **REFUTED unconditionally** (1.48e9 keys) |
+| C engine selftest (S-box re-derivation, 256/256) | 🟢 **CONFIRMED** — and it caught an uninitialised `inv_tbl[0]` in its own derivation that made it fail ~1 run in 4; fixed, 20/20 clean |
+| 7 clue-7 candidates (actor pairs, character pairs, deck plans, stanza-2 fate) | 🔴 **REFUTED unconditionally** — 10,330,523,392 keys, 0 matches, 7/7 witness-certified |
 | segment 3 solved / full puzzle solved | 🔴 no |
 
 ## 7. Where this leaves the puzzle
@@ -231,8 +255,10 @@ ROUND 21 STATE
                       cross-validated against pycryptodome
 
 === live levers ======================================================
-  L1  Finish the solo sweep over the four surviving registers. Each
-      refutation is unconditional rather than conditional on a guess.
+  L1  The solo sweep is now ~10 min per candidate, so the bottleneck is
+      *choosing* candidates, not sweeping them. The next pass should spend
+      its effort on naming registers that survive the recovered montage,
+      not on more generated strings.
   L2  Identify the two men from the RECOVERED montage. This is now a
       normal image-identification job on a legible photograph, not a
       judgement about line-art strokes -- and it is external, so it needs

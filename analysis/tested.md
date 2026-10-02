@@ -190,12 +190,18 @@ the wrong alphabet) and must not be cited as refuting a clue-7 string outright.
 Each candidate is swept against all `wasd0123456789^8` = 1,475,789,056 clue-3
 answers, so these are **unconditional**, not joint.
 
-| clue-7 candidate | clue-3 space swept | keys | result | witness |
-|---|---|---|---|---|
-| `victorgarberjonathanhyde` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found |
-| `jonathanhydevictorgarber` | `wasd0123456789^8` | 1,475,789,056 | see `tools/clue7_solo_sweep.py` output | yes |
-| `edwardsmiththomasandrews` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
-| `thomasandrewsedwardsmith` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
-| `smithandrewsdeckplanlast` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
-| `thenightmovestomakerofit` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
-| `thecoldnightmovestomaker` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
+| clue-7 candidate | clue-3 space swept | keys | result | witness | wall time |
+|---|---|---|---|---|---|
+| `victorgarberjonathanhyde` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 6.7 min |
+| `jonathanhydevictorgarber` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 7.6 min |
+| `edwardsmiththomasandrews` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 10.1 min |
+| `thomasandrewsedwardsmith` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 10.3 min |
+| `smithandrewsdeckplanlast` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 10.3 min |
+| `thenightmovestomakerofit` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 10.2 min |
+| `thecoldnightmovestomaker` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found | 10.2 min |
+
+**Round total: 10,330,523,392 keys, 0 matches, 7 of 7 runs witness-certified.**
+Every one of these is an **unconditional** refutation: no clue-3 answer in the author's
+own alphabet can rescue any of these strings. They cover the actor-pair register
+(both orders), the character-pair register (both orders), the deck-plans register, and
+the poem's stanza-2 fate register.

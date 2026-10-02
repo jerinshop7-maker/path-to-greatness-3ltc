@@ -1,0 +1,20 @@
+clue-3 space swept per candidate: wasd0123456789^8 = 1,475,789,056 keys
+at ~1.3M keys/s that is about 19 minutes per candidate
+candidates: 7, all exactly 24 characters: True
+victorgarberjonathanhyde       no match     6.7 min  certified
+jonathanhydevictorgarber       no match     7.6 min  certified
+edwardsmiththomasandrews       no match    10.1 min  certified
+thomasandrewsedwardsmith       no match    10.3 min  certified
+smithandrewsdeckplanlast       no match    10.3 min  certified
+thenightmovestomakerofit       no match    10.2 min  certified
+thecoldnightmovestomaker       no match     6.5 min  certified
+
+==============================================================================
+SUMMARY -- each refuted against ALL 1,475,789,056 clue-3 answers
+  victorgarberjonathanhyde       no match
+  jonathanhydevictorgarber       no match
+  edwardsmiththomasandrews       no match
+  thomasandrewsedwardsmith       no match
+  smithandrewsdeckplanlast       no match
+  thenightmovestomakerofit       no match
+  thecoldnightmovestomaker       no match
