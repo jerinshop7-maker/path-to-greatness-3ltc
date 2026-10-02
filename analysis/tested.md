@@ -165,3 +165,37 @@ Family definitions and the derivation audit are in
 | Hypothesis | Space (N) | What went wrong | Status |
 |---|---|---|---|
 | Segment 4, wave F | 6,110,000,000 ordered pairs | the process exited 0 but wrote no verdict line, so there is no evidence the sweep reached the end | to be replayed; it is not counted in any total above |
+
+## Round 21 (2026-10-01) — a capability, and a correction to the method
+
+| Hypothesis | Space (N) | Method | Result | Witness | Date |
+|---|---|---|---|---|---|
+| Clue 7's payload is a **dither** rather than line art | 2,073,600 px; run-length + uniform-block statistics vs synthetic line-art and dither controls | `tools/clue7_montage_recover.py` | **dither** — runs 1.71/5.12 and uniform-8x8 0.1165, against controls 2.48/21.26 & 0.3303 (line art) and 1.80/2.23 & 0.0000 (dither) | yes, synthetic controls | 2026-10-01 |
+| The recovered montage contains text | recovered montage, 3 scales, 2 polarities, psm 6/11/12 | OCR | 0 words; fragments only (`2eamesiatreRE`, `Sears`, `Baty`) | yes | 2026-10-01 |
+| The payload is a dither of the G-channel photograph | block-mean correlation, n=4/8/16 | correlation | **+0.0925 / +0.1020 / +0.1084** — no; the payload is a *different* photograph | yes | 2026-10-01 |
+| The C engine equals pycryptodome on real keys | 3,504 keys | `tools/seg3_crosscheck.py` | 0 disagreements, full 16-byte plaintexts compared | yes | 2026-10-01 |
+
+### The structural negative that reframes every earlier clue-7 run
+
+`{w,a,s,d}^8` (65,536) and `{0-9}^8` (100,000,000) **both exclude every mixed
+string**, and all 1,290 retained clue-3 readings are mixed — each contains at
+least one digit and at least one of `w/a/s/d`, including the repo's strongest
+`d3w1as24`. So every clue-7 negative recorded in rounds 14–20 was computed
+against a clue-3 space that could not have held its own best candidates. Those
+negatives are **doubly conditional** (they assume a clue-3 half, and they sweep
+the wrong alphabet) and must not be cited as refuting a clue-7 string outright.
+
+### Solo sweep — clue-7 candidates vs the COMPLETE clue-3 space
+
+Each candidate is swept against all `wasd0123456789^8` = 1,475,789,056 clue-3
+answers, so these are **unconditional**, not joint.
+
+| clue-7 candidate | clue-3 space swept | keys | result | witness |
+|---|---|---|---|---|
+| `victorgarberjonathanhyde` | `wasd0123456789^8` | 1,475,789,056 | **no match** | yes, re-found |
+| `jonathanhydevictorgarber` | `wasd0123456789^8` | 1,475,789,056 | see `tools/clue7_solo_sweep.py` output | yes |
+| `edwardsmiththomasandrews` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
+| `thomasandrewsedwardsmith` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
+| `smithandrewsdeckplanlast` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
+| `thenightmovestomakerofit` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |
+| `thecoldnightmovestomaker` | `wasd0123456789^8` | 1,475,789,056 | see sweep output | yes |

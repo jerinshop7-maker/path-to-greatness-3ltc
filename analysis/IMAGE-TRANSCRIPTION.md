@@ -305,28 +305,59 @@ Stanza 1 is the **extraction instruction**: *a red … channel* → the red chan
 pixel carries a further least-significant bit, so the montage is not itself a
 nested container.
 
-**The montage** is a three-part collage:
+**The montage** is a three-part collage — **a dithered photograph, recovered by
+block-averaging the parity plane** (round 21, `tools/clue7_montage_recover.py`;
+see `SESSION-FINDINGS-2026-10-01m.md` §1-2). Do NOT read it at 1:1: a one-bit
+reduction of a photograph is a dither and is not legible until averaged.
 
-1. **left** — a male portrait, narrower face, high brow, dark eyes, a moustache
-   and goatee shadow;
-2. **middle** — a **ship's line drawing**: a hull seen from the bow quarter with
-   rows of deck openings, the foremast and its standing rigging above;
-3. **right** — a male portrait, broader face, heavy jaw, and a **heavy drooping
-   moustache**.
+```python
+bm = (parity & 1).reshape(h//8, 8, w//8, 8).mean(axis=(1, 3))   # n = 8 recovers it
+```
+
+Measured, not assumed, against synthetic controls: mean horizontal run of ones
+**1.71** / zeros **5.12** (line-art control 2.48 / 21.26; dither control
+1.80 / 2.23), uniform 8x8 blocks **0.1165** (line-art control 0.3303, dither
+control 0.0000), and 78.9% of block-mean mass in the middle bins.
+
+1. **left** — a male portrait with a **heavy drooping moustache**, receding hair;
+2. **middle** — the ship's **bow and foremast** with standing rigging;
+3. **right** — a male portrait, **clean-shaven**, heavy jaw, looking down.
+
+**Orientation is not mirrored**: the poem is legible and unmirrored in the G
+channel at the top right, so the two portraits cannot have been swapped by a
+display artefact.
+
+**The G channel is a clean photograph.** `G == B` on 100% of pixels, and
+rendered as a picture it is a black-and-white photograph of **RMS Titanic under
+full sail, bow to the right**, with this clue's poem typeset at the top right.
+The payload is a **different** photograph from that base image: block-mean
+correlation between the parity plane and G is **+0.0925 / +0.1020 / +0.1084**
+(n = 4 / 8 / 16), i.e. none.
 
 ### CORRECTIONS this section now carries
 
 | # | Correction | Where it was wrong |
 |---|---|---|
 | **X7** | The montage's middle element is a **ship's line drawing**, not "deck plans" and not a photograph. | `author-posts.md` / rounds 12–14 all say "the deck plans in the middle" |
-| **X7b** | The right-hand portrait carries a **heavy moustache**, which matches Bernard Hill's Captain Edward Smith, **not** Victor Garber's Thomas Andrews. | rounds 13 and 14 both assert "Andrews played by Victor Garber on the right" |
+| **X7b** | The heavy drooping moustache is on the **LEFT** portrait, and the **right** portrait is **clean-shaven**. | **CORRECTED in round 21.** X7b had the two reversed. It was read off the raw 1:1 plane, which is dither noise; recovering the montage by block-averaging shows the moustached man on the left. Consequently the "moustache => Smith, not Andrews" inference is void, and round 14's "Andrews on the right" is unsupported too. **Neither earlier reading named the two men correctly**; the identity is open. |
+| **X9** | The payload is a **dither**, not line art, and the montage is a legible photograph. | rounds 14-20 all describe it as line art from `ink ~ 0.25` and read element identities off the raw plane. Measured run statistics and uniform-block fractions identify a dither; block-averaging recovers it. Every identity recorded before round 21 is unreliable. |
+| **X10** | The **G channel** is a clean photograph of RMS Titanic (bow right), and the payload is a *different* photograph from it. | never rendered in this repo before round 21; block-mean corr(parity, G) ~ +0.10 |
 | **X8** | The red-LSB mechanism was **assumed correct before the file was read**. It happens to be right, but stanza 1 of the poem is what states it, and that stanza had never been transcribed. | `leads.md` §3, which asserts "the hidden picture in the red low bit plane" |
 
-Note the tension worth carrying forward: `jonathan`(8) + `hyde`(4) + `victor`(6) +
-`garber`(6) = **exactly 24**, the required answer length, whereas `bernard`(7) +
-`hill`(4) + `victor`(6) + `garber`(6) = 23. The length coincidence therefore
-mildly favours Hyde + Garber, i.e. it argues *against* X7. Unresolved; see
-`analysis/SESSION-FINDINGS-2026-10-01i.md` route A1.
+**The identity of the two men is OPEN, and both prior readings were wrong**
+(round 21, `SESSION-FINDINGS-2026-10-01m.md` §2). X7 had the portraits reversed
+and round 14's "Andrews on the right" is unsupported. The left portrait's heavy
+moustache is *consistent with* Bernard Hill's Captain Edward Smith, but that is
+an inference from a legible photograph, not a measurement, and the right
+portrait is clean-shaven, which rules out neither Ismay nor Andrews on its own.
+
+Note the tension, now weaker than it looked: `jonathan`(8) + `hyde`(4) +
+`victor`(6) + `garber`(6) = **exactly 24**, the required answer length, whereas
+`bernard`(7) + `hill`(4) + `victor`(6) + `garber`(6) = 23. That length
+coincidence is real, but it is a coincidence about an *unsupported*
+identification, so it is no longer evidence about the montage. See
+`analysis/SESSION-FINDINGS-2026-10-01i.md` route A1 and
+`SESSION-FINDINGS-2026-10-01m.md` §2.
 
 ## 9. `clues/computer_screen.jpg` — the encryption scheme
 

@@ -16,7 +16,7 @@ How to read it
   unread picture and a mis-stated board.
 - Negatives live in `analysis/tested.md`; open leads in `analysis/leads.md`.
   This file carries only what is established, plus §7 (what is **not**).
-- Last updated: round 20 (`SESSION-FINDINGS-2026-10-01l.md`).
+- Last updated: round 21 (`SESSION-FINDINGS-2026-10-01m.md`).
 
 ---
 
@@ -111,13 +111,18 @@ How to read it
 | C7.3 | Its own poem is now first-hand (8 lines), and **stanza 1 is the extraction instruction**: "a red sky … a channel for light" → red channel, "the least bit significant" → least significant bit. | `IMAGE-TRANSCRIPTION.md` §8 (CORRECTION X8) |
 | C7.4 | **Red bit plane 0 is the hidden montage** (set fraction 0.250) and is the only structured low plane (planes 1–3 are 0.498/0.501/0.511, pure static). | Measured; `tools/clue7_ship_extract.py` |
 | C7.5 | **There is no nested layer**: after removing a local box blur from plane 0, no pixel carries a further LSB. | `IMAGE-TRANSCRIPTION.md` §8 |
-| C7.6 | The montage middle element is a **ship's line drawing** (hull from the bow quarter, deck openings, foremast and rigging) — **not** "deck plans". | `IMAGE-TRANSCRIPTION.md` §8 (CORRECTION X7) |
-| C7.7 | The right-hand portrait has a **heavy drooping moustache**, which reads as Captain Smith, **not** Andrews. Three earlier rounds built candidates on "Andrews on the right". | (CORRECTION X7b) — see §7: round 20 shows this is a judgment about *line art* |
+| C7.6 | The montage's middle element is the ship's **bow and foremast** with standing rigging. It is **not** "deck plans". | `IMAGE-TRANSCRIPTION.md` §8 (CORRECTION X7, refined round 21) |
+| C7.7 | **WITHDRAWN — see C7.14/C7.15.** The claim that the right-hand portrait carries the heavy moustache was read off the raw 1-bit plane and has the two portraits **reversed**. | **WITHDRAWN**, round 21, `SESSION-FINDINGS-2026-10-01m.md` §2 |
 | C7.8 | **The carrier is exact**: `R = G + d` with `d in {-1, 0, +1}` for every pixel (100% within ±2), and `G == B` everywhere. So the author perturbed the red channel by at most one unit against a base image carried in G/B, and the payload is the red **parity** bit. | `tools/clue7_montage_scan.py`, round 20 §1a |
 | C7.9 | **No second payload layer**: the red LSB plane is structured (ink 0.250, block-std 0.197) while the sign channel `R != G` is pure noise (ink 0.501, block-std 0.032). Independent method from round 14's box-blur test, same conclusion. | round 20 §1a |
-| C7.10 | The montage is **line art** (~0.25 ink, stroke structure, not halftone), spanning y 43–666 of 1080 across the full width. | round 20 §1b |
-| C7.11 | **There is no text in the montage**: OCR (tesseract 5.5.0) over the plane at 1:1/2x/4x, both polarities, psm 6/7/11, whole-plane and per-element and per-candidate-line, returns 52 strings of ≥3 alphanumerics, all line-art noise. | round 20 §1b; `tools/clue7_montage_scan.py` |
+| C7.10 | **WITHDRAWN.** "The montage is line art (~0.25 ink)" was an inference from ink fraction alone. Round 21 measures it as a **dither**: mean horizontal run of ones **1.71** / zeros **5.12** and uniform 8x8 blocks **0.1165**, against synthetic line-art controls of 2.48 / 21.26 and 0.3303, and dither controls of 1.80 / 2.23 and 0.0000. | **REFUTED**, round 21, `tools/clue7_montage_recover.py` §1 |
+| C7.11 | **There is no legible text in the montage.** Confirmed on the **recovered** montage: OCR at three scales, both polarities, psm 6/11/12 returns only fragments (`'2eamesiatreRE'`, `'Sears'`), never a word. **Weakened**: round 20 ran OCR on the raw 1-bit plane, where dither noise destroys glyphs, so it could not have found text even if present. | round 21, `tools/clue7_montage_recover.py` §6 |
 | C7.12 | The two portrait regions are **different images**: normalised correlation −0.059 (mirrored −0.058, rot180 +0.054). | round 20 §1b |
+| C7.13 | **The payload is a dithered photograph and is recovered legibly by block-averaging**: `bm = (parity & 1).reshape(h//8,8,w//8,8).mean(axis=(1,3))`. At n = 8 the montage is plainly readable; at n = 4 more detail returns. | round 21, `tools/clue7_montage_recover.py` §3 |
+| C7.14 | **The recovered montage is two male portraits flanking the ship's bow**: the left portrait has a **heavy drooping moustache**; the right portrait is **clean-shaven**. **Orientation is not mirrored** — the poem is legible and unmirrored in G at the top right. | round 21, `montage_n08.png` / `montage_n04.png` |
+| C7.15 | **The identity of the two men is OPEN.** Round 20's "moustache => Smith" had the portraits reversed, and round 14's "Andrews on the right" is unsupported. The left moustache is *consistent with* Bernard Hill's Smith, but that is an inference from a photograph, not a measurement. | round 21, `SESSION-FINDINGS-2026-10-01m.md` §2 |
+| C7.16 | **The G channel is a clean black-and-white photograph of RMS Titanic under full sail, bow to the right**, with this clue's poem typeset top-right. Never rendered in this repository before round 21. | round 21, `clue7_G_channel.png` |
+| C7.17 | **The payload is a *different* photograph from the G-channel base image**: block-mean correlation between the parity plane and G is +0.0925 / +0.1020 / +0.1084 (n = 4/8/16). The author carries the real ship photograph visibly in G/B and hides a different picture in red's parity bit. | round 21, `tools/clue7_montage_recover.py` §2 |
 
 ### Clue 8 — `sky`, 17 (segment 4, with clue 2)
 
@@ -140,6 +145,10 @@ How to read it
 | X3 | Segment 3's IV `colors_on_leaves` is **not** a track on the 13-track album; the other three IVs are tracks 1, 6 and 13. | `IMAGE-TRANSCRIPTION.md` §9; re-verified round 18 in `oracle.SEGMENTS` |
 | X4 | `tools/segsweep.py` is restored: the round-14 driver three committed tools import (`clue3_ship_cross.py`, `clue7_ship_family.py`, `clue7_desc_sweep.py`) had never been committed. It normalises, **reports** length drops, and plants a witness per call. | Round 18; the 1,290 retained clue-3 readings reproduce through it |
 | X5 | The 1,290 retained clue-3 readings are the union of `clue3_ship_cross` families A–F (A=4, B=70, C=15, D=82, E=1120, F=2). | Round 14 §4; re-derived round 18 |
+| X6 | **The clue-3 spaces swept before round 21 cannot hold the repo's own best clue-3 answers.** `{w,a,s,d}^8` (65,536) and `{0-9}^8` (10⁸) both exclude any *mixed* string, and all 1,290 retained readings are mixed — they need letters and digits. Every clue-7 negative in rounds 14–20 was therefore computed against a space that could not have contained `d3w1as24`. | Arithmetic on the alphabets; round 21 §5 |
+| X7 | **The C search engine agrees with pycryptodome byte for byte** on 3,504 real keys (the repo's structural clue-3 readings × clue-7 candidates, plus a uniform spread over all 14 alphabet characters), comparing full 16-byte plaintexts under the real segment-3 ciphertext and IV. | `tools/seg3_crosscheck.py`, 0 disagreements |
+| X8 | The C engine's **selftest re-derives the S-box** from its definition (multiplicative inverse in GF(2⁸) plus the affine map) and requires 256/256 agreement, plus `ISBOX ∘ SBOX = id`. This caught two transcription errors in the tables as first written. | `tools/seg3_cross.c selftest` |
+| X9 | Clue 7 **can now be tested on its own**: `seg3_cross alpha` sweeps all `wasd0123456789^8` = **1,475,789,056** clue-3 answers per clue-7 candidate, at ~1.3M keys/s (~19 min). A string that fails is refuted **unconditionally** rather than conditionally on a guess about a closed source. | `tools/seg3_cross.c`, `tools/clue7_solo_sweep.py` |
 
 ## 4. Confirmed impossibilities and exact boundaries
 
@@ -187,7 +196,9 @@ is only meaningful with its space size:
 | X4 | Clue 2's second text line is indented; the panel is rotated 90° CCW. | §0; C2.1 |
 | X5 | Clue 8's panel carries 13 question marks, decorative key/paths/padlock and icon groups, not just the two examples. | §0; C8.1 |
 | X6 | Clue 5 pictogram 1 of row 1 is a headstone with a heart, not a map pin. | §0 |
-| X7 | `Ship.png`'s middle element is a ship's line drawing, not deck plans; the right portrait has a heavy moustache (Smith-like, not Garber/Andrews). | §0; C7.6–C7.7 |
+| X7 | `Ship.png`'s middle element is the ship's bow and foremast, not deck plans. **The right-portrait moustache claim was withdrawn in round 21 — the portraits were reversed.** | §0; C7.6, C7.14 |
+| X11 | **Clue 7's payload is a dithered photograph, not line art.** Every element identity recorded in rounds 14–20 was read off the raw 1-bit plane and is unreliable; block-averaging recovers a legible image. | Round 21, C7.10 (withdrawn), C7.13 |
+| X12 | The **G channel is a clean photograph of RMS Titanic** (bow right) with the poem typeset top-right, and the payload is a *different* photograph from it (block-mean corr ~ +0.10). | Round 21, C7.16–C7.17 |
 | X8 | Clue 7's red-LSB mechanism is stated by its own poem, stanza 1 — it was assumed before the file was read. | §0 |
 | X9 | The clue-4 FEN printed in §4 (and quoted in round 14) is **malformed** and disagrees with the board table; the table-derived FEN is `4r3/rkp2p2/1p1p1np1/6N1/3B4/1QP5/2K5/8 w`. | Round 18, §C4.3 |
 | X10 | The album tracklist used by the earliest analysis was wrong; the real 13-track list is C8.5 (`nocturnal_sugars` is track 6, not 2). | `SESSION-FINDINGS-2026-09-30.md` C2 |
@@ -202,8 +213,8 @@ status; the detail is in the round files and `analysis/leads.md`.
 | `sky = 71520219618128920` | 🟡 **UNCONFIRMED** — the mechanism is confirmed (C8.2) and this is the unique witness-consistent candidate, but it has not passed segment 4 against any clue-2 family (0/116 in round 18) |
 | `sky = 58112171456182114` | 🟡 UNCONFIRMED (repo's earlier structural candidate) |
 | `wasd = d3w1as24` | 🟡 CONFIRMED as an **encoding**, unconfirmed as an answer, and untestable until clue 7 exists |
-| Every clue-7 `ship` string so far | 🔴 0 match — and the 24-character answers are *joint* refutations (they also assume a clue-3 half) |
-| The two faces being Ismay + Andrews (or Smith) | ⚠️ **CONTESTED and now harder** — X7b's "pixels say Smith" is a judgment about **line-art strokes**, not a photograph (C7.10), while the 24-length coincidence (`hyde`+`garber`) favours the Andrews reading. Unresolved, it decides every name-based clue-7 family, and round 20 shows the image alone probably cannot settle it |
+| Every clue-7 `ship` string so far | 🔴 0 match — and every pre-round-21 negative is **doubly conditional**: it assumed a clue-3 half, and it swept a clue-3 alphabet that cannot hold any mixed answer (X6). The solo sweep (X9) is the fix. `victorgarberjonathanhyde` is now refuted unconditionally. |
+| The two faces' identities | ⚠️ **FULLY OPEN, and both prior readings were wrong.** Round 21 recovered the montage and shows the heavy moustache on the **left** portrait with the right one clean-shaven (C7.14), so round 20's "Smith on the right" is withdrawn and round 14's "Andrews on the right" is unsupported. It now needs external identification against the 1997 film frames. |
 | The full-name clue-7 register (`jbruceismay`, `thomasandrews`, `edwardsmith`, initials, incl. `jbruceismaythomasandrews`) | 🔴 0 match — 350,880 pairs against the 1,290 retained clue-3 readings and 2,228,224 against `{w,a,s,d}^8` |
 | A caption/name/nameplate as the clue-7 answer | 🔴 **CLOSED by measurement** (N12) |
 | The Puzzling StackExchange puzzle 122638 as an independent source for clue 2 | 🔴 **REFUTED** — it post-dates P2G by two years (2023-10-09 vs 2021-07-25) and has no posted solution; its only new information is the author's phrase/sentence hint, and the 15-character instruction-window family it motivates is 0/108 |
